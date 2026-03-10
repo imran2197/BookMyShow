@@ -1,0 +1,52 @@
+.layout {
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f84464;
+  padding: 0 12px;
+}
+
+.logo,
+.logo:hover {
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search {
+  width: min(280px, 40vw);
+}
+
+.signInBtn,
+.signInBtn:hover {
+  background: #fff !important;
+  color: #f84464 !important;
+  border: none !important;
+}
+
+.content {
+  padding: 0px 12px;
+  background: #fff;
+}
+
+.footer {
+  background: #1a1a1a;
+  color: #999;
+  text-align: center;
+  padding: 16px 12px;
+}
+
+.footer-item {
+  color: #fff;
+  margin-right: 24px;
+}
