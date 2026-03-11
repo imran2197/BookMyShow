@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./Layout.css";
 import { BrowserRouter, Link } from "react-router";
 
-import { Layout as AntLayout, Button, Input, Drawer } from "antd";
+import { Layout as AntLayout, Button, Drawer } from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
 
-import { SearchOutlined, MenuOutlined, CloseOutlined } from "@ant-design/icons";
+import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
@@ -19,27 +19,21 @@ const Layout = ({ children }) => {
             BookMyShow
           </Link>
 
-          {/* Desktop Search + SignIn */}
+          {/* Desktop SignIn */}
           <div className="searchContainer">
-            <Input
-              className="search"
-              placeholder="Search..."
-              prefix={<SearchOutlined />}
-            />
-
-            <Button type="default" size="small" className="signInBtn">
-              Sign In
-            </Button>
+            <Link to="/signup">
+              <Button type="default" className="signupBtn">
+                Sign up
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button className="loginBtn">Login</Button>
+            </Link>
           </div>
 
           {/* Mobile Hamburger */}
           <MenuOutlined className="hamburger" onClick={() => setOpen(true)} />
         </Header>
-
-        {/* MOBILE SEARCH */}
-        <div className="mobileSearch">
-          <Input placeholder="Search..." prefix={<SearchOutlined />} />
-        </div>
 
         {/* DRAWER MENU */}
         <Drawer
@@ -57,9 +51,16 @@ const Layout = ({ children }) => {
           closeIcon={false}
         >
           <div className="drawerSearch">
-            <Button type="primary" block>
-              Sign In
-            </Button>
+            <Link to="/login" onClick={() => setOpen(false)}>
+              <Button className="mobileLoginBtn" block>
+                Login
+              </Button>
+            </Link>
+            <Link to="/signup" onClick={() => setOpen(false)}>
+              <Button type="default" className="signupBtn" block>
+                Sign up
+              </Button>
+            </Link>
           </div>
         </Drawer>
 

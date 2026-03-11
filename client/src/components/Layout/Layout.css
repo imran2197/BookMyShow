@@ -5,11 +5,16 @@
 /* HEADER */
 
 .header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #f84464;
   padding: 0 12px;
+  box-shadow: 0 6px 15px rgba(15, 23, 42, 0.16);
 }
 
 .logo,
@@ -31,14 +36,39 @@
   width: min(280px, 40vw);
 }
 
-.signInBtn,
-.signInBtn:hover {
+.signupBtn,
+.loginBtn,
+.mobileLoginBtn {
+  border: 1px solid #fff !important;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: clamp(0.8rem, 4vw, 0.9rem);
+  padding: 16px 22px !important;
+}
+
+.signupBtn,
+.signupBtn:hover {
   background: #fff !important;
   color: #f84464 !important;
-  border: none !important;
+}
+
+.loginBtn {
+  background: #f84464;
+  color: #fff;
+}
+
+.loginBtn:hover {
+  background: #fff !important;
+  color: #f84464 !important;
+  border: 1px solid #f84464 !important;
 }
 
 /* MOBILE SEARCH */
+
+.mobileLoginBtn {
+  background: #f84464 !important;
+  color: #fff !important;
+}
 
 .mobileSearch {
   display: none;
@@ -58,7 +88,7 @@
 /* CONTENT */
 
 .content {
-  padding: 0px 12px;
+  padding-top: 64px;
   background: #fff;
 }
 

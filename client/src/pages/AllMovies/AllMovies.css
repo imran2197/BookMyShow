@@ -1,9 +1,66 @@
 .moviesContainer {
   max-width: 1200;
   margin: 0 auto;
-  padding: 16px 8px;
+  padding: 16px 8px !important;
 }
 
 .heading {
   font-size: clamp(1.25rem, 4vw, 1.5rem);
+}
+
+.movies-page {
+  padding: 24px 12px 32px;
+  background: radial-gradient(
+    circle at top,
+    #fff5f7 0,
+    #ffffff 40%,
+    #f3f4ff 100%
+  );
+}
+
+.movies-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.movies-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.movies-title {
+  margin: 0 !important;
+}
+
+.movies-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.movies-pill {
+  border-radius: 999px !important;
+  padding-inline: 10px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.movies-search-input {
+  max-width: 320px;
+}
+
+@media (max-width: 768px) {
+  .movies-page {
+    padding-inline: 12px;
+  }
+
+  .movies-search-input {
+    width: 100%;
+    max-width: none;
+  }
 }
