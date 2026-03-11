@@ -33,6 +33,7 @@ class AuthenticationError extends ApiError {
 }
 
 module.exports = {
+  ApiError,
   BadRequestError,
   NotFoundError,
   InternalServerError,

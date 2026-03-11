@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const { ApiError } = require("./core/ApiError");
+
 const moviesRoutes = require("./routes/movies");
+const usersRoutes = require("./routes/users");
 
 const app = express();
 
@@ -12,15 +16,23 @@ app.use(
     credentials: true,
   }),
 );
+app.use(cookieParser());
 
+// Routes
 app.use("/movies", moviesRoutes);
+app.use("/users", usersRoutes);
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Something Went Wrong!" } = err;
-  res.status(status).json({
-    success: false,
-    message,
-  });
+  if (err instanceof ApiError) {
+    const { status = 500, message = "Something Went Wrong!" } = err;
+    return res.status(status).json({
+      success: false,
+      message,
+    });
+  }
+  return res
+    .status(500)
+    .json({ success: false, message: "Something Went Wrong" });
 });
 
 module.exports = app;
