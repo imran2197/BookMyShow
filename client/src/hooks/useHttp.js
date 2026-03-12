@@ -1,27 +1,29 @@
-import { useReducer } from "react";
+import { useReducer, useCallback } from "react";
 
 const httpReducer = (state, action) => {
   switch (action.type) {
     case "PENDING":
       return {
-        data: null,
+        ...state,
         isLoading: true,
-        error: false,
       };
+
     case "SUCCESS":
       return {
+        ...state,
         data: action.payload,
         isLoading: false,
-        error: null,
       };
     case "ERROR":
       return {
-        data: null,
+        ...state,
         isLoading: false,
         error: action.error,
       };
+
+    default:
+      return state;
   }
-  throw new Error("Invalid Event");
 };
 
 const useHttp = (requestFunction, startsWithPending = false) => {
@@ -31,18 +33,30 @@ const useHttp = (requestFunction, startsWithPending = false) => {
     error: null,
   });
 
-  const sendRequest = async (...requestData) => {
-    try {
+  const sendRequest = useCallback(
+    async (...requestData) => {
       dispatch({ type: "PENDING" });
-      const data = await requestFunction(...requestData);
-      dispatch({ type: "SUCCESS", payload: data.data });
-    } catch (err) {
-      dispatch({
-        type: "ERROR",
-        error: err.message || "Something went wrong!",
-      });
-    }
-  };
+
+      try {
+        const response = await requestFunction(...requestData);
+
+        dispatch({
+          type: "SUCCESS",
+          payload: response?.data ?? response,
+        });
+      } catch (err) {
+        dispatch({
+          type: "ERROR",
+          error:
+            err?.response?.data?.message ||
+            err?.message ||
+            "Something went wrong!",
+        });
+      }
+    },
+    [requestFunction],
+  );
+
   return {
     ...httpState,
     sendRequest,

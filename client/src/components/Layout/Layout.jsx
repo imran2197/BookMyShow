@@ -10,7 +10,7 @@ import UserContext from "../../context/user-context";
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   const profileItems = [
     {
@@ -119,7 +119,10 @@ const Layout = ({ children }) => {
                   type="default"
                   size="small"
                   shape="round"
-                  onClick={logout}
+                  onClick={() => {
+                    logout();
+                    setOpen(false);
+                  }}
                 >
                   Logout
                 </Button>
