@@ -1,0 +1,103 @@
+.movieContainer {
+  padding: 32px 16px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.backButton,
+.backButton:hover {
+  margin-bottom: 24px;
+  background: #f84464 !important;
+  color: #fff !important;
+}
+
+.posterWrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.posterAspect {
+  aspect-ratio: 2 / 3;
+  background: #111;
+}
+
+.posterImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.movieTitle {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.ratingBox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f6f6f6;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.ratingText {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.movieDescription {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+  max-width: 650px;
+}
+
+.castSection {
+  margin-top: 48px;
+}
+
+.castTitle {
+  font-size: clamp(1.4rem, 3vw, 1.7rem);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.castCard {
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+}
+
+.castCard:hover {
+  transform: translateY(-4px);
+}
+
+.castAvatar {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.castName {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.castAlias {
+  font-size: 12px;
+  color: #888;
+  margin-top: 4px;
+}

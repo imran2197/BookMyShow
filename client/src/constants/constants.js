@@ -10,7 +10,7 @@ export const roles = [
 ];
 
 export const MOVIE_ENDPOINTS = {
-  allMovies: "/movies",
+  movies: "/movies",
 };
 
 export const USER_ENDPOINTS = {
