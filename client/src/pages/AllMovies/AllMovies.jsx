@@ -14,7 +14,7 @@ const AllMovies = () => {
   useEffect(() => {
     (async () => {
       const res = await fetchAllMovies();
-      setMovies(res.data.data);
+      setMovies(res.data);
     })();
   }, []);
 

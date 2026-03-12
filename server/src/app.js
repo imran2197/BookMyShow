@@ -19,8 +19,8 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use("/movies", moviesRoutes);
-app.use("/users", usersRoutes);
+app.use(moviesRoutes);
+app.use(usersRoutes);
 
 app.use((err, req, res, next) => {
   if (err instanceof ApiError) {

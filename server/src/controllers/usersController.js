@@ -64,7 +64,7 @@ const logoutUser = (req, res) => {
     .json(ApiResponse.build(true, null, "You've Successfully Logged Out."));
 };
 
-const loggedInUserDetails = async (req, res) => {
+const fetchProfile = async (req, res) => {
   const user = await User.findById(req.userId).select("-password");
 
   return res
@@ -82,5 +82,5 @@ module.exports = {
   loginUser,
   logoutUser,
   secret,
-  loggedInUserDetails,
+  fetchProfile,
 };

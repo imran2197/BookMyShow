@@ -2,9 +2,9 @@ const express = require("express");
 const {
   registerUser,
   loginUser,
-  loggedInUserDetails,
   secret,
   logoutUser,
+  fetchProfile,
 } = require("../controllers/usersController");
 const { isLoggedIn } = require("../middlewares/userMiddleware");
 const router = express.Router();
@@ -14,6 +14,6 @@ router.post("/login", loginUser);
 router.get("/logout", logoutUser);
 
 router.get("/secret", isLoggedIn, secret);
-router.get("/loggedInUserDetails", isLoggedIn, loggedInUserDetails);
+router.get("/fetchProfile", isLoggedIn, fetchProfile);
 
 module.exports = router;

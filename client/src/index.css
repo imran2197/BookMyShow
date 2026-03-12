@@ -101,6 +101,7 @@
 .auth-form .ant-input-password,
 .auth-form .ant-select-selector {
   border-radius: 999px !important;
+  padding: 3px 10px !important;
 }
 
 .auth-form .ant-input-affix-wrapper {
@@ -129,7 +130,7 @@
 
 .auth-submit-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 18px 40px rgba(248, 68, 100, 0.45);
+  box-shadow: 0 2px 15px rgba(248, 68, 100, 0.45);
 }
 
 .auth-footer-text {

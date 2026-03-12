@@ -1,15 +1,18 @@
-import React from "react";
+import "/src/index.css";
+
+import { Link } from "react-router";
+import { useContext } from "react";
+import UserContext from "../../context/user-context";
+
 import { Form, Input, Button, Card, Typography } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-
-import "/src/index.css";
 
 const { Title, Text } = Typography;
 
 const Login = () => {
+  const { login } = useContext(UserContext);
   const handleFinish = (values) => {
-    // Placeholder: integrate with backend login API here
-    console.log("Login form submitted:", values);
+    login(values);
   };
 
   return (
@@ -66,6 +69,12 @@ const Login = () => {
               Log in
             </Button>
           </Form.Item>
+
+          <div
+            style={{ textAlign: "center", color: "#374151", fontWeight: 500 }}
+          >
+            Don't have an account? <Link to="/signup">Register</Link>
+          </div>
         </Form>
       </Card>
     </div>

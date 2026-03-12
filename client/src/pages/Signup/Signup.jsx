@@ -1,16 +1,32 @@
-import { Button, Card, Form, Input, Select, Typography } from "antd";
-import { roles } from "../../constants/constants";
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-
 import "/src/index.css";
+import { roles } from "../../constants/constants";
+import useHttp from "../../hooks/useHttp";
+import { register } from "../../services/user.service";
+import { Link, useNavigate } from "react-router";
+
+import { Button, Card, Form, Input, message, Select, Typography } from "antd";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
 
 const Signup = () => {
+  const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  const { data, isLoading, sendRequest } = useHttp(register, false);
+
   const handleFinish = (values) => {
-    console.log(values);
+    sendRequest(values);
   };
+
+  useEffect(() => {
+    if (data) {
+      message.success("Registration Successful. Please login.");
+      navigate("/login");
+    }
+  }, [data, navigate]);
   return (
     <div className="auth-page">
       <div className="auth-blob auth-blob-1" />
@@ -25,7 +41,13 @@ const Signup = () => {
             more.
           </Text>
         </div>
-        <Form className="auth-form" layout="vertical" onFinish={handleFinish}>
+        <Form
+          form={form}
+          layout="vertical"
+          className="auth-form"
+          onFinish={handleFinish}
+          initialValues={{ role: "User" }}
+        >
           <Form.Item
             label="Name"
             name="name"
@@ -81,10 +103,17 @@ const Signup = () => {
               size="large"
               block
               className="auth-submit-btn"
+              loading={isLoading}
+              disabled={isLoading}
             >
               Create account
             </Button>
           </Form.Item>
+          <div
+            style={{ textAlign: "center", color: "#374151", fontWeight: 500 }}
+          >
+            Already have an account? <Link to="/login">Login</Link>
+          </div>
         </Form>
 
         <div className="auth-footer-text">
