@@ -22,12 +22,6 @@ const AllTheatres = () => {
           All Theatres
         </Title>
 
-        {isLoading && (
-          <div className="loading-container">
-            <Spin size="large" />
-          </div>
-        )}
-
         {error && (
           <Alert
             type="error"
