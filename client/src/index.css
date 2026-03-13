@@ -144,6 +144,10 @@
   cursor: pointer;
 }
 
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  padding-bottom: 0px !important;
+}
+
 @media (max-width: 600px) {
   .auth-card {
     max-width: 100%;

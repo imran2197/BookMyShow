@@ -19,3 +19,7 @@ export const USER_ENDPOINTS = {
   logout: "/logout",
   fetchProfile: "/fetchProfile",
 };
+
+export const THEATRE_ENDPOINTS = {
+  theatres: "theatres",
+};

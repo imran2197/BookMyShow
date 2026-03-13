@@ -1,16 +1,36 @@
 import React, { useContext, useState } from "react";
 import "./Layout.css";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
-import { Layout as AntLayout, Avatar, Button, Drawer, Dropdown } from "antd";
+import {
+  Layout as AntLayout,
+  Avatar,
+  Button,
+  Collapse,
+  Drawer,
+  Dropdown,
+  Space,
+} from "antd";
 import { Header, Content, Footer } from "antd/es/layout/layout";
-import { MenuOutlined, CloseOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  MenuOutlined,
+  CloseOutlined,
+  UserOutlined,
+  DownOutlined,
+  PlusOutlined,
+  AppstoreOutlined,
+  HomeOutlined,
+  PlaySquareOutlined,
+  TagsOutlined,
+} from "@ant-design/icons";
 
 import UserContext from "../../context/user-context";
 
+const { Panel } = Collapse;
+
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const { user, logout } = useContext(UserContext);
+  const { user, isAuthenticated, logout } = useContext(UserContext);
 
   const profileItems = [
     {
@@ -23,21 +43,61 @@ const Layout = ({ children }) => {
     },
   ];
 
+  const theatreItems = [
+    {
+      key: "1",
+      icon: <PlusOutlined />,
+      label: <Link to="/addTheatre">Add Theatre</Link>,
+    },
+    {
+      key: "2",
+      icon: <AppstoreOutlined />,
+      label: <Link to="/allTheatres">All Theatres</Link>,
+    },
+  ];
+
+  const canCreateTheatre =
+    isAuthenticated && (user?.role === "Admin" || user?.role === "Partner");
+
   return (
     <AntLayout className="layout">
       {/* HEADER */}
       <Header className="header">
-        <Link to="/" className="logo">
-          BookMyShow
-        </Link>
+        <div className="headerLeft">
+          <Link to="/" className="logo">
+            <TagsOutlined style={{ marginRight: "10px" }} />
+            BookMyShow
+          </Link>
+        </div>
 
-        {/* Desktop SignIn */}
-        <div className="searchContainer">
+        <div className="navLinks">
+          <NavLink to="/" className="navItem">
+            <HomeOutlined />
+            Home
+          </NavLink>
+
+          {canCreateTheatre && (
+            <Dropdown
+              menu={{ items: theatreItems }}
+              trigger={["click"]}
+              overlayClassName="theatreDropdown"
+            >
+              <Space className="navItem">
+                <PlaySquareOutlined />
+                Theatre
+                <DownOutlined />
+              </Space>
+            </Dropdown>
+          )}
+        </div>
+
+        <div className="headerRight">
           {user ? (
             <>
               <Dropdown
                 menu={{ items: profileItems }}
                 placement="bottomRight"
+                overlayClassName="profileDropdown"
                 arrow
               >
                 <Avatar
@@ -46,6 +106,7 @@ const Layout = ({ children }) => {
                   icon={<UserOutlined />}
                 />
               </Dropdown>
+
               <Button
                 className="logout"
                 type="default"
@@ -63,6 +124,7 @@ const Layout = ({ children }) => {
                   Sign up
                 </Button>
               </Link>
+
               <Link to="/login">
                 <Button className="loginBtn">Login</Button>
               </Link>
@@ -70,7 +132,6 @@ const Layout = ({ children }) => {
           )}
         </div>
 
-        {/* Mobile Hamburger */}
         <MenuOutlined className="hamburger" onClick={() => setOpen(true)} />
       </Header>
 
@@ -93,15 +154,40 @@ const Layout = ({ children }) => {
         <div className="drawerSearch">
           <div className="menuContainer">
             <div className="navItems">
-              <Link to="/movies" onClick={() => setOpen(false)}>
-                Movies
+              <Link to="/" className="navItem">
+                <HomeOutlined />
+                Home
               </Link>
-              <Link to="/events" onClick={() => setOpen(false)}>
-                Events
-              </Link>
-              <Link to="/sports" onClick={() => setOpen(false)}>
-                Sports
-              </Link>
+              {canCreateTheatre && (
+                <Collapse ghost className="mobileTreeMenu">
+                  <Panel
+                    header={
+                      <span>
+                        <PlaySquareOutlined style={{ marginRight: 6 }} />{" "}
+                        Theatre
+                      </span>
+                    }
+                    key="1"
+                  >
+                    <Link
+                      to="/addTheatre"
+                      onClick={() => setOpen(false)}
+                      className="navItem"
+                    >
+                      <PlusOutlined style={{ marginRight: "10px" }} />
+                      Add Theatre
+                    </Link>
+                    <Link
+                      to="/allTheatres"
+                      onClick={() => setOpen(false)}
+                      className="navItem"
+                    >
+                      <AppstoreOutlined style={{ marginRight: "10px" }} />
+                      All Theatres
+                    </Link>
+                  </Panel>
+                </Collapse>
+              )}
             </div>
             {user ? (
               <div className="userSection">
