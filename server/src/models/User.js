@@ -28,6 +28,14 @@ const userSchema = new mongoose.Schema(
   },
 );
 
+userSchema.methods.isPartner = function () {
+  return this.role === "Partner";
+};
+
+userSchema.methods.isAdmin = function () {
+  return this.role === "Admin";
+};
+
 const User = mongoose.model("users", userSchema);
 
 module.exports = User;

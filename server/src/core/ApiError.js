@@ -32,10 +32,18 @@ class AuthenticationError extends ApiError {
   }
 }
 
+class ForbiddenError extends ApiError {
+  constructor(message = "Forbidden Error") {
+    super(message);
+    this.status = 403;
+  }
+}
+
 module.exports = {
   ApiError,
   BadRequestError,
   NotFoundError,
   InternalServerError,
   AuthenticationError,
+  ForbiddenError,
 };
