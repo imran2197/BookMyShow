@@ -9,7 +9,7 @@ const TheatreSchema = new mongoose.Schema({
   capacity: Number,
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
+    ref: "User",
   },
 });
 
