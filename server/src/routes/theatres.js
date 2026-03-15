@@ -6,10 +6,17 @@ const {
 } = require("../middlewares/userMiddleware");
 const {
   createTheatre,
-  getTheatres,
+  getUserSpecificTheatres,
+  getTheatreById,
 } = require("../controllers/theatresController");
 
 router.post("/theatres", isLoggedIn, isPartnerOrAdmin, createTheatre);
-router.get("/theatres", isLoggedIn, isPartnerOrAdmin, getTheatres);
+router.get(
+  "/userSpecificTheatres",
+  isLoggedIn,
+  isPartnerOrAdmin,
+  getUserSpecificTheatres,
+);
+router.get("/theatres/:id", isLoggedIn, isPartnerOrAdmin, getTheatreById);
 
 module.exports = router;

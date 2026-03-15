@@ -101,3 +101,55 @@
   color: #888;
   margin-top: 4px;
 }
+
+.movie-theatres-divider {
+  margin-top: 32px !important;
+  margin-bottom: 20px !important;
+}
+
+.movie-theatres-section {
+  margin-top: 8px;
+}
+
+.movie-theatres-title {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.movie-theatres-loading {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.movie-theatre-card .ant-card-body {
+  padding: 14px;
+}
+
+.movie-theatre-info {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.movie-theatre-info div {
+  margin-bottom: 4px;
+}
+
+.movie-theatre-book-btn {
+  width: 100%;
+  border-radius: 6px;
+  background: #f84464 !important;
+}
+
+.movie-theatre-book-btn:hover {
+  background: #fff !important;
+  color: #f84464 !important;
+  border: 1px solid #f84464 !important;
+}
+
+.movie-theatre-card:hover {
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}

@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
     {
       key: "2",
       icon: <AppstoreOutlined />,
-      label: <Link to="/allTheatres">All Theatres</Link>,
+      label: <Link to="/myTheatres">My Theatres</Link>,
     },
   ];
 
@@ -178,12 +178,12 @@ const Layout = ({ children }) => {
                       Add Theatre
                     </Link>
                     <Link
-                      to="/allTheatres"
+                      to="/myTheatres"
                       onClick={() => setOpen(false)}
                       className="navItem"
                     >
                       <AppstoreOutlined style={{ marginRight: "10px" }} />
-                      All Theatres
+                      My Theatres
                     </Link>
                   </Panel>
                 </Collapse>

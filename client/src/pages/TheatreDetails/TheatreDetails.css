@@ -1,0 +1,53 @@
+.theatre-details-wrapper {
+  padding: 24px 8px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.theatre-back-btn {
+  margin-bottom: 16px;
+  padding-left: 0 !important;
+}
+
+.theatre-loading {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theatre-card {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.theatre-card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.theatre-section-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.screening-form .ant-form-item {
+  margin-bottom: 18px;
+}
+
+.screening-submit-btn {
+  min-width: 160px;
+}
+
+.theatre-divider {
+  margin-block: 20px !important;
+}
+
+.mb-3 {
+  margin-bottom: 15px !important;
+}

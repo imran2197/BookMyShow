@@ -21,5 +21,10 @@ export const USER_ENDPOINTS = {
 };
 
 export const THEATRE_ENDPOINTS = {
-  theatres: "theatres",
+  theatres: "/theatres",
+  userSpecificTheatres: "/userSpecificTheatres",
+};
+
+export const SCREENING_ENDPOINTS = {
+  screenings: "/screenings",
 };

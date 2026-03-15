@@ -2,8 +2,21 @@ import "./MovieDetails.css";
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import useHttp from "../../hooks/useHttp";
-import { fetchMovieById } from "../../services/movie.service";
-import { Avatar, Button, Card, Col, Rate, Row, Tag } from "antd";
+import {
+  fetchMovieById,
+  fetchTheatresByMovieId,
+} from "../../services/movie.service";
+import {
+  Avatar,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Empty,
+  Rate,
+  Row,
+  Tag,
+} from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const MovieDetails = () => {
@@ -12,8 +25,16 @@ const MovieDetails = () => {
 
   const { data: movie, sendRequest } = useHttp(fetchMovieById, false);
 
+  const {
+    data: screenings,
+    error: theatresError,
+    isLoading: isTheatresLoading,
+    sendRequest: sendTheatresRequest,
+  } = useHttp(fetchTheatresByMovieId, false);
+
   useEffect(() => {
     sendRequest(id);
+    sendTheatresRequest(id);
   }, [id, sendRequest]);
 
   if (!movie) return null;
@@ -86,6 +107,55 @@ const MovieDetails = () => {
           </Row>
         </div>
       )}
+
+      <Divider className="movie-theatres-divider" />
+      <div className="movie-theatres-section">
+        <h2 className="movie-theatres-title">Theatres screening this movie</h2>
+
+        {theatresError && (
+          <Alert
+            message="Unable to load theatres"
+            description={theatresError}
+            type="error"
+            showIcon
+            style={{ marginBottom: 16 }}
+          />
+        )}
+
+        {!isTheatresLoading && !theatresError && (
+          <>
+            {(screenings?.theatres || []).length === 0 ? (
+              <Empty description="No theatres are screening this movie yet." />
+            ) : (
+              <Row gutter={[12, 12]}>
+                {(screenings?.theatres || []).map((t) => (
+                  <Col key={t._id} xs={24} md={12}>
+                    <Card
+                      hoverable
+                      className="movie-theatre-card"
+                      title={t.name}
+                      extra={
+                        <Tag color="blue">
+                          {t.capacity ? `Capacity: ${t.capacity}` : "Theatre"}
+                        </Tag>
+                      }
+                    >
+                      <div className="movie-theatre-info">
+                        <div>{t.address || "-"}</div>
+                        <div>Contact: {t.contactNo || "-"}</div>
+                      </div>
+
+                      <Button type="primary" className="movie-theatre-book-btn">
+                        Book Ticket
+                      </Button>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

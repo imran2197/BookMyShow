@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { Card, List, Spin, Alert, Tag, Typography } from "antd";
 import useHttp from "../../hooks/useHttp";
-import "./AllTheatres.css";
-import { getAllTheatres } from "../../services/theatre.service";
+import "./MyTheatres.css";
+import { getMyTheatres } from "../../services/theatre.service";
+import { useNavigate } from "react-router";
 
 const { Title } = Typography;
 
-const AllTheatres = () => {
-  const { data, error, isLoading, sendRequest } = useHttp(getAllTheatres, true);
+const MyTheatres = () => {
+  const { data, error, isLoading, sendRequest } = useHttp(getMyTheatres, true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     sendRequest();
@@ -19,7 +21,7 @@ const AllTheatres = () => {
     <div className="all-theatres-wrapper">
       <Card className="all-theatres-card">
         <Title level={3} className="all-theatres-title">
-          All Theatres
+          My Theatres
         </Title>
 
         {error && (
@@ -35,7 +37,10 @@ const AllTheatres = () => {
             dataSource={theatres}
             locale={{ emptyText: "No theatres available" }}
             renderItem={(item) => (
-              <List.Item className="theatre-list-item">
+              <List.Item
+                className="theatre-list-item"
+                onClick={() => navigate(`/theatres/${item._id}`)}
+              >
                 <List.Item.Meta
                   title={
                     <span className="theatre-name">
@@ -63,4 +68,4 @@ const AllTheatres = () => {
   );
 };
 
-export default AllTheatres;
+export default MyTheatres;

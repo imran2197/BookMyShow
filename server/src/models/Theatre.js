@@ -13,6 +13,6 @@ const TheatreSchema = new mongoose.Schema({
   },
 });
 
-const Theatre = mongoose.model("theatres", TheatreSchema);
+const Theatre = mongoose.model("Theatre", TheatreSchema);
 
 module.exports = Theatre;

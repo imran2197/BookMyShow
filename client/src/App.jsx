@@ -6,7 +6,8 @@ import Signup from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import AddTheatre from "./pages/AddTheatre/AddTheatre";
-import AllTheatres from "./pages/AllTheatres/AllTheatres";
+import MyTheatres from "./pages/MyTheatres/MyTheatres";
+import TheatreDetails from "./pages/TheatreDetails/TheatreDetails";
 
 const App = () => {
   return (
@@ -17,7 +18,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/addTheatre" element={<AddTheatre />} />
-        <Route path="/AllTheatres" element={<AllTheatres />} />
+        <Route path="/myTheatres" element={<MyTheatres />} />
+        <Route path="/theatres/:id" element={<TheatreDetails />} />
       </Routes>
     </Layout>
   );

@@ -19,6 +19,7 @@
   padding: 16px 12px !important;
   border-radius: 10px;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .theatre-list-item:hover {
