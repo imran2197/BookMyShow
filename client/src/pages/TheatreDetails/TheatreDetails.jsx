@@ -16,10 +16,7 @@ import {
   Tag,
 } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import {
-  fetchAllMovies,
-  fetchMoviesNotInScreenings,
-} from "../../services/movie.service";
+import { fetchMoviesNotInScreenings } from "../../services/movie.service";
 import { createScreening } from "../../services/screening.service";
 
 const TheatreDetails = () => {

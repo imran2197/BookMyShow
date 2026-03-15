@@ -6,6 +6,7 @@ import {
   fetchMovieById,
   fetchTheatresByMovieId,
 } from "../../services/movie.service";
+
 import {
   Avatar,
   Button,
@@ -16,7 +17,9 @@ import {
   Rate,
   Row,
   Tag,
+  Alert,
 } from "antd";
+
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const MovieDetails = () => {
@@ -35,82 +38,57 @@ const MovieDetails = () => {
   useEffect(() => {
     sendRequest(id);
     sendTheatresRequest(id);
-  }, [id, sendRequest]);
+  }, [id]);
 
   if (!movie) return null;
 
   const { title, description, rating, runtime, cast, posterUrl } = movie;
 
   return (
-    <div className="movieContainer">
-      <Button
-        type="text"
-        className="backButton"
-        icon={<ArrowLeftOutlined />}
-        onClick={() => navigate(-1)}
+    <div className="moviePage">
+      <div
+        className="heroSection"
+        style={{ backgroundImage: `url(${posterUrl})` }}
       >
-        Back
-      </Button>
+        <div className="heroOverlay">
+          <Button
+            type="text"
+            className="backButton"
+            icon={<ArrowLeftOutlined />}
+            onClick={() => navigate(-1)}
+          >
+            Back
+          </Button>
 
-      <Row gutter={[24, 24]} align="top">
-        <Col xs={24} md={9}>
-          <div className="posterWrapper">
-            <div className="posterAspect">
-              <img src={posterUrl} alt={title} className="posterImage" />
-            </div>
-          </div>
-        </Col>
+          <Row gutter={[32, 24]} align="middle">
+            <Col xs={24} md={6}>
+              <img src={posterUrl} alt={title} className="heroPoster" />
+            </Col>
 
-        <Col xs={24} md={15}>
-          <h1 className="movieTitle">{title}</h1>
-          <div className="ratingRow">
-            <div className="ratingBox">
-              <Rate disabled allowHalf value={rating ? rating / 2 : 0} />
+            <Col xs={24} md={18}>
+              <h1 className="heroTitle">{title}</h1>
 
-              <span className="ratingText">
-                {rating?.toFixed(1) || "N/A"} / 10
-              </span>
-            </div>
-            {runtime && <Tag color="magenta">⏱ {runtime} mins</Tag>}
-          </div>
-          {description && <p className="movieDescription">{description}</p>}
-        </Col>
-      </Row>
+              <div className="heroMeta">
+                <div className="heroRating">
+                  <Rate disabled allowHalf value={rating ? rating / 2 : 0} />
+                  <span>{rating?.toFixed(1) || "N/A"} / 10</span>
+                </div>
 
-      {cast && cast.length > 0 && (
-        <div className="castSection">
-          <h2 className="castTitle">Cast</h2>
+                {runtime && <Tag color="magenta">⏱ {runtime} mins</Tag>}
+              </div>
 
-          <Row gutter={[20, 20]}>
-            {cast.map((member) => (
-              <Col key={member._id} xs={12} sm={8} md={6}>
-                <Card
-                  hoverable
-                  className="castCard"
-                  styles={{ body: { padding: 18 } }}
-                >
-                  <Avatar
-                    src={member.profilePicture}
-                    alt={member.name}
-                    size={80}
-                    className="castAvatar"
-                  />
-
-                  <div className="castName">{member.name}</div>
-
-                  {member.alias && (
-                    <div className="castAlias">as {member.alias}</div>
-                  )}
-                </Card>
-              </Col>
-            ))}
+              <Button type="primary" size="large" className="heroBookBtn">
+                Book Tickets
+              </Button>
+            </Col>
           </Row>
         </div>
-      )}
+      </div>
 
-      <Divider className="movie-theatres-divider" />
-      <div className="movie-theatres-section">
-        <h2 className="movie-theatres-title">Theatres screening this movie</h2>
+      <div className="movieContent">
+        <Divider />
+
+        <h2 style={{ padding: "15px 0px" }}>Theatres screening this movie</h2>
 
         {theatresError && (
           <Alert
@@ -118,7 +96,6 @@ const MovieDetails = () => {
             description={theatresError}
             type="error"
             showIcon
-            style={{ marginBottom: 16 }}
           />
         )}
 
@@ -127,25 +104,14 @@ const MovieDetails = () => {
             {(screenings?.theatres || []).length === 0 ? (
               <Empty description="No theatres are screening this movie yet." />
             ) : (
-              <Row gutter={[12, 12]}>
+              <Row gutter={[16, 16]}>
                 {(screenings?.theatres || []).map((t) => (
                   <Col key={t._id} xs={24} md={12}>
-                    <Card
-                      hoverable
-                      className="movie-theatre-card"
-                      title={t.name}
-                      extra={
-                        <Tag color="blue">
-                          {t.capacity ? `Capacity: ${t.capacity}` : "Theatre"}
-                        </Tag>
-                      }
-                    >
-                      <div className="movie-theatre-info">
-                        <div>{t.address || "-"}</div>
-                        <div>Contact: {t.contactNo || "-"}</div>
-                      </div>
+                    <Card hoverable className="theatreCard" title={t.name}>
+                      <div>{t.address}</div>
+                      <div>📞 {t.contactNo}</div>
 
-                      <Button type="primary" className="movie-theatre-book-btn">
+                      <Button type="primary" block className="bookBtn">
                         Book Ticket
                       </Button>
                     </Card>
@@ -153,6 +119,36 @@ const MovieDetails = () => {
                 ))}
               </Row>
             )}
+          </>
+        )}
+
+        <Divider />
+
+        <h2>About the Movie</h2>
+
+        <p className="description">{description}</p>
+
+        {cast && cast.length > 0 && (
+          <>
+            <Divider />
+
+            <h2>Cast</h2>
+
+            <Row gutter={[20, 20]}>
+              {cast.map((member) => (
+                <Col key={member._id} xs={12} sm={8} md={4}>
+                  <div className="castItem">
+                    <Avatar src={member.profilePicture} size={90} />
+
+                    <div className="castName">{member.name}</div>
+
+                    {member.alias && (
+                      <div className="castAlias">as {member.alias}</div>
+                    )}
+                  </div>
+                </Col>
+              ))}
+            </Row>
           </>
         )}
       </div>
