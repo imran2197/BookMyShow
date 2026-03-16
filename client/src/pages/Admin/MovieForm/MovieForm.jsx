@@ -13,7 +13,7 @@ import "./MovieForm.css";
 import React, { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 import useHttp from "../../../hooks/useHttp";
-import { addNewMovie } from "../../../services/movie.service";
+import { addNewMovie, updateMovie } from "../../../services/movie.service";
 
 const MovieForm = ({
   isModalOpen,
@@ -23,10 +23,13 @@ const MovieForm = ({
   formType,
   refreshMovies,
 }) => {
-  const { data, sendRequest: sendAddNewMovieRequest } = useHttp(
+  const { data: newMovieData, sendRequest: sendAddNewMovieRequest } = useHttp(
     addNewMovie,
     false,
   );
+  const { data: updatedMovieData, sendRequest: sendUpdateMovieRequest } =
+    useHttp(updateMovie, false);
+
   const [form] = Form.useForm();
   const { Option } = Select;
 
@@ -37,11 +40,17 @@ const MovieForm = ({
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
     values.releaseDate = new Date(values.releaseDate);
     values.runtime = Number(values.runtime);
-    values.genre = values.genre.join(", ");
-    sendAddNewMovieRequest(values);
+    if (formType === "add") {
+      sendAddNewMovieRequest(values);
+    } else {
+      const payload = {
+        ...values,
+        id: selectedMovie._id,
+      };
+      sendUpdateMovieRequest(payload);
+    }
   };
 
   const languages = [
@@ -54,11 +63,22 @@ const MovieForm = ({
   ];
 
   useEffect(() => {
-    if (data) {
+    if (newMovieData || updatedMovieData) {
       setIsModalOpen(false);
       refreshMovies();
     }
-  }, [data, refreshMovies, setIsModalOpen]);
+  }, [newMovieData, updatedMovieData, refreshMovies, setIsModalOpen]);
+
+  useEffect(() => {
+    if (selectedMovie) {
+      form.setFieldsValue({
+        ...selectedMovie,
+        releaseDate: selectedMovie.releaseDate
+          ? new Date(selectedMovie.releaseDate).toISOString().split("T")[0]
+          : null,
+      });
+    }
+  }, [selectedMovie, form]);
 
   return (
     <Modal

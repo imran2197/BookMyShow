@@ -5,7 +5,7 @@ const movieSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      maxLength: 30,
+      maxLength: 50,
     },
     description: {
       type: String,
@@ -20,7 +20,7 @@ const movieSchema = new mongoose.Schema(
       required: true,
     },
     genre: {
-      type: String,
+      type: [],
       required: true,
     },
     releaseDate: {

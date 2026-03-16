@@ -12,6 +12,7 @@ export const roles = [
 export const MOVIE_ENDPOINTS = {
   addNewMovie: "/movies/add-movie",
   deleteMovie: "/movies/delete-movie",
+  updateMovie: "/movies/update-movie",
   getAllMovies: "/movies/get-all-movies",
   getMovieById: "/movies",
 };

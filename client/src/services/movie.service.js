@@ -14,6 +14,11 @@ const deleteMovie = async (id) => {
   return response.data;
 };
 
+const updateMovie = async (values) => {
+  const response = await axiosInstance.put(MOVIE_ENDPOINTS.updateMovie, values);
+  return response.data;
+};
+
 const fetchAllMovies = async () => {
   const response = await axiosInstance.get(MOVIE_ENDPOINTS.getAllMovies);
   return response.data;
@@ -43,6 +48,7 @@ const fetchMoviesNotInScreenings = async (id) => {
 export {
   addNewMovie,
   deleteMovie,
+  updateMovie,
   fetchAllMovies,
   fetchMovieById,
   fetchTheatresByMovieId,

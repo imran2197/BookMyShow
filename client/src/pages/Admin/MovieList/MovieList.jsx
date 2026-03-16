@@ -63,15 +63,15 @@ const MovieList = () => {
                 />
               }
               actions={[
-                <span className="editIcon">
-                  <EditOutlined
-                    key="edit"
-                    onClick={() => {
-                      setIsModalOpen(true);
-                      setSelectedMovie(movie);
-                      setFormType("edit");
-                    }}
-                  />
+                <span
+                  className="editIcon"
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setSelectedMovie(movie);
+                    setFormType("edit");
+                  }}
+                >
+                  <EditOutlined key="edit" />
                   Edit
                 </span>,
                 <span
@@ -108,7 +108,7 @@ const MovieList = () => {
                         textWrap: "nowrap",
                       }}
                     >
-                      <b>Genre:</b> {movie.genre}
+                      <b>Genre:</b> {movie.genre.join(", ")}
                     </p>
                     <p>
                       <b>Language:</b> {movie.language}
