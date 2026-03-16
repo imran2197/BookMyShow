@@ -7,6 +7,14 @@ const movieSchema = new mongoose.Schema(
       required: true,
       maxLength: 30,
     },
+    description: {
+      type: String,
+      required: true,
+    },
+    language: {
+      type: String,
+      required: true,
+    },
     posterUrl: {
       type: String,
       required: true,
@@ -28,10 +36,6 @@ const movieSchema = new mongoose.Schema(
       required: true,
       min: 0,
       max: 10,
-    },
-    description: {
-      type: String,
-      required: true,
     },
     cast: [
       {

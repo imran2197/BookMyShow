@@ -1,0 +1,51 @@
+.movie-modal .ant-modal-content {
+  border-radius: 12px;
+}
+
+.movie-modal .ant-divider {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-buttons {
+  margin-top: 25px;
+  display: flex !important;
+  justify-content: end;
+  gap: 10px !important;
+}
+
+/* .submit-btn {
+  flex: 1;
+  font-weight: 600;
+} */
+
+/* Cast Layout */
+
+.cast-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.cast-field {
+  flex: 1;
+  margin-bottom: 0 !important;
+}
+
+.cast-remove-btn {
+  height: 40px;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .cast-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cast-remove-btn {
+    width: 100%;
+  }
+}

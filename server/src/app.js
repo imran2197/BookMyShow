@@ -21,12 +21,13 @@ app.use(
 app.use(cookieParser());
 
 // Routes
-app.use(moviesRoutes);
+app.use("/movies", moviesRoutes);
 app.use(usersRoutes);
 app.use(theatresRoutes);
 app.use(screeningsRoutes);
 
 app.use((err, req, res, next) => {
+  console.log(err);
   if (err instanceof ApiError) {
     const { status = 500, message = "Something Went Wrong!" } = err;
     return res.status(status).json({

@@ -10,7 +10,10 @@ export const roles = [
 ];
 
 export const MOVIE_ENDPOINTS = {
-  movies: "/movies",
+  addNewMovie: "/movies/add-movie",
+  deleteMovie: "/movies/delete-movie",
+  getAllMovies: "/movies/get-all-movies",
+  getMovieById: "/movies",
 };
 
 export const USER_ENDPOINTS = {

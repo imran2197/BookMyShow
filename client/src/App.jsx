@@ -8,6 +8,7 @@ import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import AddTheatre from "./pages/AddTheatre/AddTheatre";
 import MyTheatres from "./pages/MyTheatres/MyTheatres";
 import TheatreDetails from "./pages/TheatreDetails/TheatreDetails";
+import Admin from "./pages/Admin/Admin";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/addTheatre" element={<AddTheatre />} />
         <Route path="/myTheatres" element={<MyTheatres />} />
         <Route path="/theatres/:id" element={<TheatreDetails />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Layout>
   );

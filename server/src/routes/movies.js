@@ -3,12 +3,19 @@ const {
   getAllMovies,
   getMovieById,
   getMoviesForScreening,
+  addMovie,
+  updateMovie,
+  deleteMovie,
 } = require("../controllers/moviesController");
 
 const router = express.Router();
 
-router.get("/movies", getAllMovies);
-router.get("/movies/:id", getMovieById);
-router.get("/movies/screenings/:id", getMoviesForScreening);
+router.post("/add-movie", addMovie);
+router.put("/update-movie", updateMovie);
+router.put("/delete-movie", deleteMovie);
+router.get("/get-all-movies", getAllMovies);
+
+router.get("/:id", getMovieById);
+router.get("/screenings/:id", getMoviesForScreening);
 
 module.exports = router;

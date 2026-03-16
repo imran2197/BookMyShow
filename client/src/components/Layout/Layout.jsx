@@ -41,6 +41,14 @@ const Layout = ({ children }) => {
       key: "role",
       label: user?.role ? `Role: ${user.role}` : "Role: N/A",
     },
+    ...(user?.role === "Admin"
+      ? [
+          {
+            key: "admin",
+            label: <Link to="/admin">Admin Page</Link>,
+          },
+        ]
+      : []),
   ];
 
   const theatreItems = [

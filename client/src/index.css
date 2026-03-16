@@ -16,6 +16,15 @@
   border: 1px solid #f84464 !important;
 }
 
+.secondaryBtn {
+  border-radius: 20px;
+}
+
+.secondaryBtn:hover {
+  color: #f84464 !important;
+  border: 1px solid #f84464 !important;
+}
+
 .ant-drawer-header {
   display: flex !important;
   justify-content: space-between !important;

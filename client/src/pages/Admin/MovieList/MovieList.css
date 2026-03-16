@@ -1,0 +1,30 @@
+.movie-list-container {
+  padding: 20px;
+}
+
+.movie-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.movie-poster {
+  height: 320px;
+  object-fit: cover;
+}
+
+.movie-details p {
+  margin: 4px 0;
+  font-size: 13px;
+}
+
+.editIcon,
+.deleteIcon {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.deleteIcon {
+  color: red;
+}
