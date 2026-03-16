@@ -162,7 +162,7 @@ const Layout = ({ children }) => {
         <div className="drawerSearch">
           <div className="menuContainer">
             <div className="navItems">
-              <Link to="/" className="navItem">
+              <Link to="/" className="navItem" onClick={() => setOpen(false)}>
                 <HomeOutlined />
                 Home
               </Link>

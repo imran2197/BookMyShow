@@ -52,10 +52,10 @@ const AllMovies = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <Row gutter={[8, 12]}>
+      <Row gutter={[16, 16]}>
         {filteredMovies &&
           filteredMovies.map((movie) => (
-            <Col key={movie._id} xs={12} sm={8} md={6} lg={4}>
+            <Col key={movie._id} xs={12} sm={8} md={6} lg={4} xl={4}>
               <Movie movie={movie} />
             </Col>
           ))}
