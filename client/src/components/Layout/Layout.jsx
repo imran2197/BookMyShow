@@ -22,6 +22,7 @@ import {
   HomeOutlined,
   PlaySquareOutlined,
   TagsOutlined,
+  DashboardOutlined,
 } from "@ant-design/icons";
 
 import UserContext from "../../context/user-context";
@@ -41,11 +42,21 @@ const Layout = ({ children }) => {
       key: "role",
       label: user?.role ? `Role: ${user.role}` : "Role: N/A",
     },
-    ...(user?.role === "Admin"
+    ...(user
       ? [
           {
-            key: "admin",
-            label: <Link to="/admin">Admin Page</Link>,
+            key: "logout",
+            label: (
+              <Button
+                className="logout"
+                type="default"
+                size="small"
+                shape="round"
+                onClick={logout}
+              >
+                Logout
+              </Button>
+            ),
           },
         ]
       : []),
@@ -84,6 +95,10 @@ const Layout = ({ children }) => {
             Home
           </NavLink>
 
+          <NavLink to="/admin" className="navItem">
+            Admin Page
+          </NavLink>
+
           {canCreateTheatre && (
             <Dropdown
               menu={{ items: theatreItems }}
@@ -107,6 +122,7 @@ const Layout = ({ children }) => {
                 placement="bottomRight"
                 overlayClassName="profileDropdown"
                 arrow
+                trigger={["click"]}
               >
                 <Avatar
                   className="avatar"
@@ -114,16 +130,6 @@ const Layout = ({ children }) => {
                   icon={<UserOutlined />}
                 />
               </Dropdown>
-
-              <Button
-                className="logout"
-                type="default"
-                size="small"
-                shape="round"
-                onClick={logout}
-              >
-                Logout
-              </Button>
             </>
           ) : (
             <>
@@ -166,12 +172,20 @@ const Layout = ({ children }) => {
                 <HomeOutlined />
                 Home
               </Link>
+              <Link
+                className="navItem"
+                to="/admin"
+                onClick={() => setOpen(false)}
+              >
+                <DashboardOutlined />
+                Admin Page
+              </Link>
               {canCreateTheatre && (
                 <Collapse ghost className="mobileTreeMenu">
                   <Panel
                     header={
                       <span>
-                        <PlaySquareOutlined style={{ marginRight: 6 }} />{" "}
+                        <PlaySquareOutlined style={{ marginRight: 2 }} />{" "}
                         Theatre
                       </span>
                     }

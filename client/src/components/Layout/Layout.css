@@ -183,10 +183,13 @@
   color: #f84464;
   border-radius: 20px;
   font-weight: 500;
+  width: 100%;
 }
 
 .logout:hover {
-  background: #ffe6eb !important;
+  background: #f84464 !important;
+  color: #ffffff !important;
+  border: none !important;
 }
 
 /* ================= DROPDOWN ================= */
@@ -321,9 +324,19 @@
   font-weight: 500;
 }
 
+.mobileTreeMenu {
+  font-size: 16px;
+  margin-left: -5px;
+}
+
 .mobileTreeMenu .ant-collapse-header {
-  padding: 8px 0 !important;
+  padding: 0px !important;
   font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.ant-collapse-body {
+  padding-top: 0px !important;
 }
 
 .mobileTreeMenu .ant-collapse-content-box {
@@ -334,7 +347,7 @@
 }
 
 .mobileTreeMenu a {
-  font-size: 14px;
+  font-size: 16px;
   color: #444;
   display: block;
   padding: 8px 15px;
