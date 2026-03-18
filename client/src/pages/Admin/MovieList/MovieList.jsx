@@ -52,7 +52,7 @@ const MovieList = () => {
 
       <Row gutter={[20, 20]}>
         {movies?.map((movie) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={movie._id}>
+          <Col xs={24} sm={8} md={6} lg={4} xl={4} key={movie._id}>
             <Card
               hoverable
               cover={
@@ -90,12 +90,7 @@ const MovieList = () => {
                 title={movie.title}
                 description={
                   <div className="movie-details">
-                    <p
-                      style={{
-                        maxHeight: "100px",
-                        overflow: "hidden",
-                      }}
-                    >
+                    <p className="movieDescription">
                       {movie.description}
                     </p>
                     <p>
