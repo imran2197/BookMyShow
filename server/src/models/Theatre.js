@@ -1,17 +1,40 @@
 const mongoose = require("mongoose");
 
-const TheatreSchema = new mongoose.Schema({
-  name: {
-    type: String,
+const TheatreSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    contactNo: {
+      type: Number,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    capacity: {
+      type: Number,
+      required: true,
+    },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
   },
-  address: String,
-  contactNo: Number,
-  capacity: Number,
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  {
+    timestamps: true,
   },
-});
+);
 
 const Theatre = mongoose.model("Theatre", TheatreSchema);
 

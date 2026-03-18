@@ -24,7 +24,18 @@ const isPartnerOrAdmin = async (req, res, next) => {
   next();
 };
 
+const isAdmin = async (req, res, next) => {
+  const { userId } = req;
+  const user = await User.findById(userId);
+
+  if (!user.isAdmin()) {
+    throw new ForbiddenError("You are not allowed to access this");
+  }
+  next();
+};
+
 module.exports = {
   isLoggedIn,
   isPartnerOrAdmin,
+  isAdmin,
 };

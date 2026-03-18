@@ -22,7 +22,7 @@ const MovieList = () => {
   const { sendRequest: sendDeleteRequest } = useHttp(deleteMovie, false);
 
   const handleOk = async () => {
-    await sendDeleteRequest({ id: selectedMovie._id });
+    await sendDeleteRequest(selectedMovie._id);
     setIsDeleteModalOpen(false);
     sendMoviesRequest();
   };
@@ -90,9 +90,7 @@ const MovieList = () => {
                 title={movie.title}
                 description={
                   <div className="movie-details">
-                    <p className="movieDescription">
-                      {movie.description}
-                    </p>
+                    <p className="movieDescription">{movie.description}</p>
                     <p>
                       <b>Runtime:</b> {formatRuntime(movie.runtime)}
                     </p>

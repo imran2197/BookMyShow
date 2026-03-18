@@ -10,7 +10,9 @@ const addNewMovie = async (values) => {
 };
 
 const deleteMovie = async (id) => {
-  const response = await axiosInstance.put(MOVIE_ENDPOINTS.deleteMovie, id);
+  const response = await axiosInstance.delete(
+    `${MOVIE_ENDPOINTS.deleteMovie}/${id}`,
+  );
   return response.data;
 };
 

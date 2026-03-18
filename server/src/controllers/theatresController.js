@@ -1,35 +1,61 @@
 const Theatre = require("../models/Theatre");
 const ApiResponse = require("../core/ApiResponse");
 
-const createTheatre = async (req, res) => {
-  const { name, capacity, address, contactNo } = req.body;
+const addTheatre = async (req, res) => {
+  const { name, address, contactNo, email, capacity } = req.body;
   const { userId } = req;
   const theatre = await Theatre.create({
     name,
-    capacity,
     address,
     contactNo,
-    user: userId,
+    email,
+    capacity,
+    owner: userId,
   });
   return res
     .status(201)
-    .json(ApiResponse.build(true, { theatre }, "Theatre Created Successfully"));
+    .json(ApiResponse.build(true, { theatre }, "Theatre created successfully"));
 };
 
-const getUserSpecificTheatres = async (req, res) => {
-  const { userId } = req;
-  const theatres = await Theatre.find({ user: userId });
+const updateTheatre = async (req, res) => {
+  const { theatreId } = req.body;
+  const theatre = await Theatre.findByIdAndUpdate(theatreId, req.body, {
+    new: true,
+  });
+  return res
+    .status(200)
+    .json(ApiResponse.build(true, { theatre }, "Theatre updated successfully"));
+};
+
+const deleteTheatre = async (req, res) => {
+  const { theatreId } = req.params;
+  await Theatre.findByIdAndDelete(theatreId);
+  return res
+    .status(200)
+    .json(ApiResponse.build(true, {}, "Theatre deleted successfully"));
+};
+
+const getAllTheatres = async (req, res) => {
+  const allTheatres = await Theatre.find({}).populate("owner");
+  return res
+    .status(200)
+    .json(ApiResponse.build(true, allTheatres, "All theatres fetched"));
+};
+
+const getOwnerSpecificTheatres = async (req, res) => {
+  const { id } = req.params;
+  const theatres = await Theatre.find({ owner: id });
   return res
     .status(200)
     .json(
-      ApiResponse.build(true, { theatres }, "Theatres Fetched Successfully"),
+      ApiResponse.build(true, { theatres }, "Theatres fetched successfully"),
     );
 };
 
 const getTheatreById = async (req, res) => {
   const { id } = req.params;
   const theatre = await Theatre.findOne({ _id: id }).populate({
-    path: "user",
+    path: "owner",
     select: "-password",
   });
   return res
@@ -38,7 +64,11 @@ const getTheatreById = async (req, res) => {
 };
 
 module.exports = {
-  createTheatre,
-  getUserSpecificTheatres,
+  addTheatre,
+  updateTheatre,
+  deleteTheatre,
+
+  getAllTheatres,
+  getOwnerSpecificTheatres,
   getTheatreById,
 };

@@ -5,17 +5,30 @@ const {
   isPartnerOrAdmin,
 } = require("../middlewares/userMiddleware");
 const {
-  createTheatre,
-  getUserSpecificTheatres,
+  addTheatre,
+  updateTheatre,
+  getOwnerSpecificTheatres,
   getTheatreById,
+  deleteTheatre,
+  getAllTheatres,
 } = require("../controllers/theatresController");
 
-router.post("/theatres", isLoggedIn, isPartnerOrAdmin, createTheatre);
-router.get(
-  "/userSpecificTheatres",
+router.post("/add-theatre", isLoggedIn, isPartnerOrAdmin, addTheatre);
+router.put("/update-theatre", isLoggedIn, isPartnerOrAdmin, updateTheatre);
+router.delete(
+  "/delete-theatre/:id",
   isLoggedIn,
   isPartnerOrAdmin,
-  getUserSpecificTheatres,
+  deleteTheatre,
+);
+
+router.get("/get-all-theatres", isLoggedIn, isPartnerOrAdmin, getAllTheatres);
+
+router.get(
+  "/getOwnerSpecificTheatres/:id",
+  isLoggedIn,
+  isPartnerOrAdmin,
+  getOwnerSpecificTheatres,
 );
 router.get("/theatres/:id", isLoggedIn, isPartnerOrAdmin, getTheatreById);
 
