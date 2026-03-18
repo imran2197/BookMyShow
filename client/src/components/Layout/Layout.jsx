@@ -94,10 +94,11 @@ const Layout = ({ children }) => {
             <HomeOutlined />
             Home
           </NavLink>
-
-          <NavLink to="/admin" className="navItem">
-            Admin Page
-          </NavLink>
+          {user?.role === "Admin" && (
+            <NavLink to="/admin" className="navItem">
+              Admin Page
+            </NavLink>
+          )}
 
           {canCreateTheatre && (
             <Dropdown
@@ -172,14 +173,16 @@ const Layout = ({ children }) => {
                 <HomeOutlined />
                 Home
               </Link>
-              <Link
-                className="navItem"
-                to="/admin"
-                onClick={() => setOpen(false)}
-              >
-                <DashboardOutlined />
-                Admin Page
-              </Link>
+              {user?.role === "Admin" && (
+                <Link
+                  className="navItem"
+                  to="/admin"
+                  onClick={() => setOpen(false)}
+                >
+                  <DashboardOutlined />
+                  Admin Page
+                </Link>
+              )}
               {canCreateTheatre && (
                 <Collapse ghost className="mobileTreeMenu">
                   <Panel
