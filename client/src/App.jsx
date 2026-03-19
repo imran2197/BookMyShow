@@ -5,10 +5,8 @@ import AllMovies from "./pages/AllMovies/AllMovies";
 import Signup from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
-import AddEditTheatre from "./pages/AddEditTheatre/AddEditTheatre";
-import MyTheatres from "./pages/MyTheatres/MyTheatres";
-import TheatreDetails from "./pages/TheatreDetails/TheatreDetails";
 import Admin from "./pages/Admin/Admin";
+import Partner from "./pages/Partner/Partner";
 
 const App = () => {
   return (
@@ -18,11 +16,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
-        <Route path="/addTheatre" element={<AddEditTheatre />} />
-        <Route path="/editTheatre" element={<AddEditTheatre />} />
-        <Route path="/myTheatres" element={<MyTheatres />} />
-        <Route path="/theatres/:id" element={<TheatreDetails />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/partner" element={<Partner />} />
       </Routes>
     </Layout>
   );

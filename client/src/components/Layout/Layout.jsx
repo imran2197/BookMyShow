@@ -24,6 +24,7 @@ import {
   TagsOutlined,
   DashboardOutlined,
   CaretDownOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 
 import UserContext from "../../context/user-context";
@@ -32,7 +33,7 @@ const { Panel } = Collapse;
 
 const Layout = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
 
   const profileItems = [
     {
@@ -63,21 +64,21 @@ const Layout = ({ children }) => {
       : []),
   ];
 
-  const theatreItems = [
-    {
-      key: "1",
-      icon: <PlusOutlined />,
-      label: <Link to="/addTheatre">Add Theatre</Link>,
-    },
-    {
-      key: "2",
-      icon: <AppstoreOutlined />,
-      label: <Link to="/myTheatres">My Theatres</Link>,
-    },
-  ];
+  // const theatreItems = [
+  //   {
+  //     key: "1",
+  //     icon: <PlusOutlined />,
+  //     label: <Link to="/addTheatre">Add Theatre</Link>,
+  //   },
+  //   {
+  //     key: "2",
+  //     icon: <AppstoreOutlined />,
+  //     label: <Link to="/myTheatres">My Theatres</Link>,
+  //   },
+  // ];
 
-  const canCreateTheatre =
-    isAuthenticated && (user?.role === "Admin" || user?.role === "Partner");
+  // const canCreateTheatre =
+  //   isAuthenticated && (user?.role === "Admin" || user?.role === "Partner");
 
   return (
     <AntLayout className="layout">
@@ -95,6 +96,7 @@ const Layout = ({ children }) => {
             <HomeOutlined />
             Home
           </NavLink>
+
           {user?.role === "Admin" && (
             <NavLink to="/admin" className="navItem">
               <DashboardOutlined />
@@ -102,7 +104,14 @@ const Layout = ({ children }) => {
             </NavLink>
           )}
 
-          {canCreateTheatre && (
+          {(user?.role === "Admin" || user?.role === "Partner") && (
+            <NavLink to="/partner" className="navItem">
+              <TeamOutlined />
+              Partner Page
+            </NavLink>
+          )}
+
+          {/* {canCreateTheatre && (
             <Dropdown
               menu={{ items: theatreItems }}
               trigger={["click"]}
@@ -120,7 +129,7 @@ const Layout = ({ children }) => {
                 />
               </Space>
             </Dropdown>
-          )}
+          )} */}
         </div>
 
         <div className="headerRight">
@@ -191,7 +200,7 @@ const Layout = ({ children }) => {
                   Admin Page
                 </Link>
               )}
-              {canCreateTheatre && (
+              {/* {canCreateTheatre && (
                 <Collapse ghost className="mobileTreeMenu">
                   <Panel
                     header={
@@ -220,7 +229,7 @@ const Layout = ({ children }) => {
                     </Link>
                   </Panel>
                 </Collapse>
-              )}
+              )} */}
             </div>
             {user ? (
               <div className="userSection">

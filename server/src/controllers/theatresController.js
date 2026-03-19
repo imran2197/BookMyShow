@@ -18,8 +18,8 @@ const addTheatre = async (req, res) => {
 };
 
 const updateTheatre = async (req, res) => {
-  const { theatreId } = req.body;
-  const theatre = await Theatre.findByIdAndUpdate(theatreId, req.body, {
+  const { id } = req.body;
+  const theatre = await Theatre.findByIdAndUpdate(id, req.body, {
     new: true,
   });
   return res
@@ -28,8 +28,8 @@ const updateTheatre = async (req, res) => {
 };
 
 const deleteTheatre = async (req, res) => {
-  const { theatreId } = req.params;
-  await Theatre.findByIdAndDelete(theatreId);
+  const { id } = req.params;
+  await Theatre.findByIdAndDelete(id);
   return res
     .status(200)
     .json(ApiResponse.build(true, {}, "Theatre deleted successfully"));
@@ -44,11 +44,11 @@ const getAllTheatres = async (req, res) => {
 
 const getOwnerSpecificTheatres = async (req, res) => {
   const { id } = req.params;
-  const theatres = await Theatre.find({ owner: id });
+  const theatres = await Theatre.find({ owner: id }).populate('owner');
   return res
     .status(200)
     .json(
-      ApiResponse.build(true, { theatres }, "Theatres fetched successfully"),
+      ApiResponse.build(true,  theatres , "Theatres fetched successfully"),
     );
 };
 
