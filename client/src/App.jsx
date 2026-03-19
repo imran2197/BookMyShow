@@ -5,7 +5,7 @@ import AllMovies from "./pages/AllMovies/AllMovies";
 import Signup from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
-import AddTheatre from "./pages/AddTheatre/AddTheatre";
+import AddEditTheatre from "./pages/AddEditTheatre/AddEditTheatre";
 import MyTheatres from "./pages/MyTheatres/MyTheatres";
 import TheatreDetails from "./pages/TheatreDetails/TheatreDetails";
 import Admin from "./pages/Admin/Admin";
@@ -18,7 +18,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
-        <Route path="/addTheatre" element={<AddTheatre />} />
+        <Route path="/addTheatre" element={<AddEditTheatre />} />
+        <Route path="/editTheatre" element={<AddEditTheatre />} />
         <Route path="/myTheatres" element={<MyTheatres />} />
         <Route path="/theatres/:id" element={<TheatreDetails />} />
         <Route path="/admin" element={<Admin />} />

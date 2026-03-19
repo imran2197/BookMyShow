@@ -6,7 +6,7 @@ const TheatreSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
+    email: {
       type: String,
       required: true,
     },
@@ -14,7 +14,7 @@ const TheatreSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    email: {
+    address: {
       type: String,
       required: true,
     },

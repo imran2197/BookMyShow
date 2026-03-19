@@ -1,16 +1,16 @@
-import "./AddTheatre.css";
+import "./AddEditTheatre.css";
 import React, { useEffect } from "react";
 import { Button, Card, Form, Input, message, Typography } from "antd";
 import { useNavigate } from "react-router";
 import useHttp from "../../hooks/useHttp";
-import { createTheatre } from "../../services/theatre.service";
+import { addTheatre } from "../../services/theatre.service";
 
 const { Title, Text } = Typography;
-const AddTheatre = () => {
+const AddEditTheatre = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const { data, isLoading, error, sendRequest } = useHttp(createTheatre, false);
+  const { data, isLoading, error, sendRequest } = useHttp(addTheatre, false);
 
   useEffect(() => {
     if (data) {
@@ -54,11 +54,19 @@ const AddTheatre = () => {
           </Form.Item>
 
           <Form.Item
-            label="Capacity"
-            name="capacity"
-            rules={[{ required: true, message: "Please enter capacity" }]}
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: "Please enter email" }]}
           >
-            <Input placeholder="Enter capacity" size="large" />
+            <Input placeholder="Enter email" />
+          </Form.Item>
+
+          <Form.Item
+            label="Contact Number"
+            name="contactNo"
+            rules={[{ required: true, message: "Please enter contact number" }]}
+          >
+            <Input placeholder="Enter contact number" maxLength={10} />
           </Form.Item>
 
           <Form.Item
@@ -70,11 +78,11 @@ const AddTheatre = () => {
           </Form.Item>
 
           <Form.Item
-            label="Contact Number"
-            name="contactNo"
-            rules={[{ required: true, message: "Please enter contact number" }]}
+            label="Capacity"
+            name="capacity"
+            rules={[{ required: true, message: "Please enter capacity" }]}
           >
-            <Input placeholder="Enter contact number" />
+            <Input placeholder="Enter capacity" size="large" />
           </Form.Item>
 
           <Form.Item>
@@ -96,4 +104,4 @@ const AddTheatre = () => {
   );
 };
 
-export default AddTheatre;
+export default AddEditTheatre;

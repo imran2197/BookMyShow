@@ -25,8 +25,13 @@ export const USER_ENDPOINTS = {
 };
 
 export const THEATRE_ENDPOINTS = {
-  theatres: "/theatres",
-  userSpecificTheatres: "/userSpecificTheatres",
+  addTheatre: "/add-theatre",
+  updateTheatre: "/update-theatre",
+  deleteTheatre: "/delete-theatre",
+
+  getAllTheatres: "/get-all-theatres",
+  getOwnerSpecificTheatres: "get-owner-specific-theatres",
+  getTheatreById: "/get-theatre-by-id",
 };
 
 export const SCREENING_ENDPOINTS = {

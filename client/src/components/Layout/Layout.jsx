@@ -23,6 +23,7 @@ import {
   PlaySquareOutlined,
   TagsOutlined,
   DashboardOutlined,
+  CaretDownOutlined,
 } from "@ant-design/icons";
 
 import UserContext from "../../context/user-context";
@@ -96,6 +97,7 @@ const Layout = ({ children }) => {
           </NavLink>
           {user?.role === "Admin" && (
             <NavLink to="/admin" className="navItem">
+              <DashboardOutlined />
               Admin Page
             </NavLink>
           )}
@@ -109,7 +111,13 @@ const Layout = ({ children }) => {
               <Space className="navItem">
                 <PlaySquareOutlined />
                 Theatre
-                <DownOutlined />
+                <CaretDownOutlined
+                  style={{
+                    transform: "scale(0.7)",
+                    marginTop: "26px",
+                    marginLeft: "-5px",
+                  }}
+                />
               </Space>
             </Dropdown>
           )}

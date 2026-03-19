@@ -61,6 +61,7 @@
 .navItem {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
 
   color: white;
@@ -77,7 +78,7 @@
 /* ICON ALIGNMENT */
 
 .navItem svg {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 /* HOVER */

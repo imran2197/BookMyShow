@@ -1,19 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, List, Spin, Alert, Tag, Typography } from "antd";
 import useHttp from "../../hooks/useHttp";
 import "./MyTheatres.css";
-import { getMyTheatres } from "../../services/theatre.service";
+import { getOwnerSpecificTheatres } from "../../services/theatre.service";
 import { useNavigate } from "react-router";
+import UserContext from "../../context/user-context";
 
 const { Title } = Typography;
 
 const MyTheatres = () => {
-  const { data, error, isLoading, sendRequest } = useHttp(getMyTheatres, true);
+  const { data, error, isLoading, sendRequest } = useHttp(
+    getOwnerSpecificTheatres,
+    true,
+  );
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    sendRequest();
-  }, []);
+    if (user) {
+      sendRequest(user?._id);
+    }
+  }, [user]);
 
   const theatres = data?.theatres || [];
 

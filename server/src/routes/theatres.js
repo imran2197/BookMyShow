@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   isLoggedIn,
   isPartnerOrAdmin,
+  isAdmin,
 } = require("../middlewares/userMiddleware");
 const {
   addTheatre,
@@ -22,14 +23,18 @@ router.delete(
   deleteTheatre,
 );
 
-router.get("/get-all-theatres", isLoggedIn, isPartnerOrAdmin, getAllTheatres);
-
+router.get("/get-all-theatres", isLoggedIn, isAdmin, getAllTheatres);
 router.get(
-  "/getOwnerSpecificTheatres/:id",
+  "/get-owner-specific-theatres/:id",
   isLoggedIn,
   isPartnerOrAdmin,
   getOwnerSpecificTheatres,
 );
-router.get("/theatres/:id", isLoggedIn, isPartnerOrAdmin, getTheatreById);
+router.get(
+  "/get-theatre-by-id/:id",
+  isLoggedIn,
+  isPartnerOrAdmin,
+  getTheatreById,
+);
 
 module.exports = router;
