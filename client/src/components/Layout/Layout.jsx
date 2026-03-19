@@ -110,26 +110,6 @@ const Layout = ({ children }) => {
               Partner Page
             </NavLink>
           )}
-
-          {/* {canCreateTheatre && (
-            <Dropdown
-              menu={{ items: theatreItems }}
-              trigger={["click"]}
-              overlayClassName="theatreDropdown"
-            >
-              <Space className="navItem">
-                <PlaySquareOutlined />
-                Theatre
-                <CaretDownOutlined
-                  style={{
-                    transform: "scale(0.7)",
-                    marginTop: "26px",
-                    marginLeft: "-5px",
-                  }}
-                />
-              </Space>
-            </Dropdown>
-          )} */}
         </div>
 
         <div className="headerRight">
@@ -186,7 +166,7 @@ const Layout = ({ children }) => {
         <div className="drawerSearch">
           <div className="menuContainer">
             <div className="navItems">
-              <Link to="/" className="navItem" onClick={() => setOpen(false)}>
+              <Link className="navItem" to="/" onClick={() => setOpen(false)}>
                 <HomeOutlined />
                 Home
               </Link>
@@ -200,36 +180,16 @@ const Layout = ({ children }) => {
                   Admin Page
                 </Link>
               )}
-              {/* {canCreateTheatre && (
-                <Collapse ghost className="mobileTreeMenu">
-                  <Panel
-                    header={
-                      <span>
-                        <PlaySquareOutlined style={{ marginRight: 2 }} />{" "}
-                        Theatre
-                      </span>
-                    }
-                    key="1"
-                  >
-                    <Link
-                      to="/addTheatre"
-                      onClick={() => setOpen(false)}
-                      className="navItem"
-                    >
-                      <PlusOutlined style={{ marginRight: "10px" }} />
-                      Add Theatre
-                    </Link>
-                    <Link
-                      to="/myTheatres"
-                      onClick={() => setOpen(false)}
-                      className="navItem"
-                    >
-                      <AppstoreOutlined style={{ marginRight: "10px" }} />
-                      My Theatres
-                    </Link>
-                  </Panel>
-                </Collapse>
-              )} */}
+              {(user?.role === "Admin" || user?.role === "Partner") && (
+                <Link
+                  className="navItem"
+                  to="/partner"
+                  onClick={() => setOpen(false)}
+                >
+                  <TeamOutlined />
+                  Partner Page
+                </Link>
+              )}
             </div>
             {user ? (
               <div className="userSection">
