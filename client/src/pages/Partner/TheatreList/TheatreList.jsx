@@ -15,6 +15,7 @@ import {
   EnvironmentTwoTone,
   TeamOutlined,
   ContactsTwoTone,
+  PlusCircleFilled,
 } from "@ant-design/icons";
 import TheatreForm from "../TheatreForm/TheatreForm";
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
@@ -117,7 +118,20 @@ const TheatreList = () => {
             >
               <DeleteOutlined />
             </Button>
-            {data.isActive && <Button type="primary">Add Show</Button>}
+            {data.isActive && (
+              <Button
+                type="primary"
+                icon={<PlusCircleFilled />}
+                style={{
+                  backgroundColor: "#e6f4ff",
+                  borderColor: "#1677ff",
+                  color: "#1677ff",
+                  borderRadius: "20px",
+                }}
+              >
+                Add Show
+              </Button>
+            )}
           </div>
         );
       },
