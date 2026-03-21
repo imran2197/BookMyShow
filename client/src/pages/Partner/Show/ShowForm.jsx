@@ -113,6 +113,16 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
         style={{ borderRadius: "12px" }}
         bodyStyle={{ padding: "16px" }}
       >
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ margin: 0, fontWeight: 600 }}>
+            {isEdit ? "Edit Show" : "Add Show"}
+          </h2>
+          <p style={{ margin: 0, color: "#888" }}>
+            {isEdit
+              ? "Update the show details"
+              : "Fill the form to create a new show"}
+          </p>
+        </div>
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} lg={8}>
