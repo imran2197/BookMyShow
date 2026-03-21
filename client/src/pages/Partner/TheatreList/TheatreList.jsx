@@ -19,12 +19,15 @@ import {
 } from "@ant-design/icons";
 import TheatreForm from "../TheatreForm/TheatreForm";
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
+import { useNavigate } from "react-router";
 
 const TheatreList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedTheatre, setSelectedTheatre] = useState(null);
   const [formType, setFormType] = useState("add");
+
+  const navigate = useNavigate();
 
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
@@ -127,6 +130,11 @@ const TheatreList = () => {
                   borderColor: "#1677ff",
                   color: "#1677ff",
                   borderRadius: "20px",
+                }}
+                onClick={() => {
+                  navigate("/partner/shows", {
+                    state: { theatreId: data._id },
+                  });
                 }}
               >
                 Add Show

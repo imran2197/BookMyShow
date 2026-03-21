@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login";
 import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import Admin from "./pages/Admin/Admin";
 import Partner from "./pages/Partner/Partner";
+import Show from "./pages/Partner/Show/Show";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/partner" element={<Partner />} />
+        <Route path="/partner/shows" element={<Show />} />
       </Routes>
     </Layout>
   );
