@@ -224,6 +224,23 @@ const TheatreList = () => {
                       }}
                       icon={<DeleteOutlined />}
                     />
+                    <Button
+                      type="primary"
+                      icon={<PlusCircleFilled />}
+                      style={{
+                        backgroundColor: "#e6f4ff",
+                        borderColor: "#1677ff",
+                        color: "#1677ff",
+                        borderRadius: "20px",
+                      }}
+                      onClick={() => {
+                        navigate("/partner/shows", {
+                          state: { theatreId: theatre._id },
+                        });
+                      }}
+                    >
+                      Add Show
+                    </Button>
                   </Space>
                 </div>
               </div>
