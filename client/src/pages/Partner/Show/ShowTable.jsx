@@ -24,8 +24,7 @@ const ShowTable = ({ setView, id, refresh }) => {
     false,
   );
 
-  const { data: deleteShowResponse, sendRequest: sendDeleteShowRequest } =
-    useHttp(deleteShow, false);
+  const { sendRequest: sendDeleteShowRequest } = useHttp(deleteShow, false);
 
   const handleDelete = async () => {
     await sendDeleteShowRequest(selectedShowId);
@@ -108,7 +107,6 @@ const ShowTable = ({ setView, id, refresh }) => {
 
   return (
     <>
-      {/* Header */}
       <div
         style={{
           display: "flex",
@@ -133,13 +131,12 @@ const ShowTable = ({ setView, id, refresh }) => {
         </Button>
       </div>
 
-      {/* Table */}
       <Table
         columns={columns}
         dataSource={shows}
         rowKey="_id"
         pagination={{ pageSize: 5 }}
-        scroll={{ x: 800 }} // ✅ mobile scroll
+        scroll={{ x: 800 }}
       />
 
       {isDeleteModalOpen && (

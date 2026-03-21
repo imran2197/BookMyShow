@@ -50,7 +50,7 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
 
       setRefresh((prev) => !prev);
       setView("table");
-      setSubmitted(false); // ✅ reset
+      setSubmitted(false);
     } else {
       message.error("Failed to add show");
       setSubmitted(false);
@@ -65,14 +65,13 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
 
       setRefresh((prev) => !prev);
       setView("table");
-      setSubmitted(false); // ✅ reset
+      setSubmitted(false);
     } else {
       message.error("Failed to update show");
       setSubmitted(false);
     }
   }, [updateShowResponse]);
 
-  // ✅ Populate / Reset form
   useEffect(() => {
     if (isEdit && selectedShow) {
       form.setFieldsValue({
@@ -212,7 +211,6 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
             </Col>
           </Row>
 
-          {/* Buttons */}
           <div
             style={{
               display: "flex",
