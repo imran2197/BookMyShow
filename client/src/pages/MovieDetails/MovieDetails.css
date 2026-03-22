@@ -1,29 +1,34 @@
+/* PAGE */
 .moviePage {
-  background: #f5f5f5;
+  background: #0f0f0f;
+  color: #fff;
 }
 
-/* HERO */
+/* HERO SECTION */
 
 .heroSection {
   background-size: cover;
   background-position: center;
+  position: relative;
+}
+
+/* modern fade bottom */
+.heroSection::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  /* background: linear-gradient(to top, #0f0f0f, transparent); */
 }
 
 .heroOverlay {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.95) 30%,
-    rgba(0, 0, 0, 0.6)
-  );
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+  backdrop-filter: blur(1.5px);
   padding: 60px 20px;
-  color: white;
 }
 
-.heroPoster {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
+/* TEXT */
 
 .heroTitle {
   font-size: 2.5rem;
@@ -34,6 +39,7 @@
   display: flex;
   gap: 14px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .heroRating {
@@ -42,14 +48,14 @@
   gap: 8px;
 }
 
+/* BUTTON */
+
 .heroBookBtn {
   margin-top: 20px;
-  background: #f84464 !important;
+  background: linear-gradient(135deg, #ff4d6d, #ff2c4f) !important;
   border: none;
-}
-
-.heroBookBtn:hover {
-  background: #ff2c4f !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.4);
 }
 
 /* CONTENT */
@@ -60,27 +66,28 @@
   padding: 30px 16px 60px;
 }
 
+.sectionTitle {
+  margin: 20px 0 10px;
+  font-size: 1.6rem;
+}
+
 .description {
-  font-size: 15px;
+  color: #ccc;
   line-height: 1.7;
-  color: #555;
 }
 
 /* THEATRES */
 
-.theatreCard .ant-card-body {
-  padding: 14px;
+.theatreCard {
+  border-radius: 16px;
+  background: #1c1c1c;
+  color: #fff;
 }
 
 .bookBtn {
   margin-top: 12px;
-  background: #f84464 !important;
-}
-
-.bookBtn:hover {
-  background: white !important;
-  color: #f84464 !important;
-  border: 1px solid #f84464 !important;
+  background: #ff4d6d !important;
+  border-radius: 8px;
 }
 
 /* CAST */
@@ -89,14 +96,21 @@
   text-align: center;
 }
 
+.castImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .castName {
+  margin-top: 6px;
   font-weight: 600;
-  margin-top: 8px;
 }
 
 .castAlias {
   font-size: 12px;
-  color: #777;
+  color: #aaa;
 }
 
 /* BACK BUTTON */
@@ -104,4 +118,51 @@
 .backButton {
   color: white !important;
   margin-bottom: 20px;
+}
+
+.backButton {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 4px 10px;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+/* hover effect */
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  transform: translateX(-3px);
+}
+
+/* icon spacing */
+.backButton .anticon {
+  font-size: 14px;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .heroOverlay {
+    padding: 20px 16px;
+  }
+
+  .heroTitle {
+    font-size: 1.4rem;
+  }
+
+  .heroMeta {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .heroBookBtn {
+    width: 100%;
+    margin-top: 12px;
+  }
 }

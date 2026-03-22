@@ -7,18 +7,7 @@ import {
   fetchTheatresByMovieId,
 } from "../../services/movie.service";
 
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Divider,
-  Empty,
-  Rate,
-  Row,
-  Tag,
-  Alert,
-} from "antd";
+import { Button, Card, Col, Divider, Empty, Rate, Row, Tag, Alert } from "antd";
 
 import { ArrowLeftOutlined } from "@ant-design/icons";
 
@@ -60,12 +49,8 @@ const MovieDetails = () => {
             Back
           </Button>
 
-          <Row gutter={[32, 24]} align="middle">
-            <Col xs={24} md={6}>
-              <img src={posterUrl} alt={title} className="heroPoster" />
-            </Col>
-
-            <Col xs={24} md={18}>
+          <Row gutter={[24, 24]} align="middle">
+            <Col xs={24}>
               <h1 className="heroTitle">{title}</h1>
 
               <div className="heroMeta">
@@ -86,9 +71,7 @@ const MovieDetails = () => {
       </div>
 
       <div className="movieContent">
-        <Divider />
-
-        <h2 style={{ padding: "15px 0px" }}>Theatres screening this movie</h2>
+        <h2 className="sectionTitle">Now Showing In</h2>
 
         {theatresError && (
           <Alert
@@ -102,17 +85,18 @@ const MovieDetails = () => {
         {!isTheatresLoading && !theatresError && (
           <>
             {(screenings?.theatres || []).length === 0 ? (
-              <Empty description="No theatres are screening this movie yet." />
+              <Empty description="No theatres available" />
             ) : (
               <Row gutter={[16, 16]}>
                 {(screenings?.theatres || []).map((t) => (
-                  <Col key={t._id} xs={24} md={12}>
-                    <Card hoverable className="theatreCard" title={t.name}>
-                      <div>{t.address}</div>
-                      <div>📞 {t.contactNo}</div>
+                  <Col key={t._id} xs={24} sm={12} md={8}>
+                    <Card hoverable className="theatreCard">
+                      <h3>{t.name}</h3>
+                      <p>{t.address}</p>
+                      <p>📞 {t.contactNo}</p>
 
                       <Button type="primary" block className="bookBtn">
-                        Book Ticket
+                        Book Now
                       </Button>
                     </Card>
                   </Col>
@@ -124,24 +108,24 @@ const MovieDetails = () => {
 
         <Divider />
 
-        <h2>About the Movie</h2>
-
+        <h2 className="sectionTitle">About</h2>
         <p className="description">{description}</p>
 
         {cast && cast.length > 0 && (
           <>
             <Divider />
+            <h2 className="sectionTitle">Cast</h2>
 
-            <h2>Cast</h2>
-
-            <Row gutter={[20, 20]}>
+            <Row gutter={[16, 16]}>
               {cast.map((member) => (
                 <Col key={member._id} xs={12} sm={8} md={4}>
                   <div className="castItem">
-                    <Avatar src={member.profilePicture} size={90} />
-
+                    <img
+                      src={member.profilePicture}
+                      alt={member.name}
+                      className="castImage"
+                    />
                     <div className="castName">{member.name}</div>
-
                     {member.alias && (
                       <div className="castAlias">as {member.alias}</div>
                     )}
