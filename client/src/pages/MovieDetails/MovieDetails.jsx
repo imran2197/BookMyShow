@@ -15,7 +15,6 @@ import {
   Rate,
   Tag,
   Tabs,
-  message,
 } from "antd";
 import {
   ArrowLeftOutlined,
@@ -26,15 +25,12 @@ import {
   CheckCircleFilled,
 } from "@ant-design/icons";
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [heroLoaded, setHeroLoaded] = useState(false);
-  const [selectedShow, setSelectedShow] = useState(null);
-  const [messageApi, contextHolder] = message.useMessage();
 
   const { data: movie, sendRequest } = useHttp(fetchMovieById, false);
   const {
@@ -70,28 +66,13 @@ const MovieDetails = () => {
     posterUrl,
   } = movie;
 
-  const handleShowSelect = (showId) => {
-    setSelectedShow(showId);
-    messageApi.open({
-      content: (
-        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <CheckCircleFilled style={{ color: "#e63946" }} />
-          Showtime selected — proceed to checkout
-        </span>
-      ),
-      duration: 3,
-      className: "md-toast-msg",
-    });
-  };
-
-  // ─── Tab Items ─────────────────────────────────────────────────────────────
   const tabItems = [
     {
       key: "showings",
       label: "Now Showing",
       children: (
         <div>
-          {/* Date Picker Row */}
+          {/* Date Picker */}
           <div className="md-showings-header">
             <h2 className="md-section-label">Select Showtime</h2>
             <Input
@@ -103,7 +84,7 @@ const MovieDetails = () => {
             />
           </div>
 
-          {/* Empty State */}
+          {/* No Theatres */}
           {!isTheatresLoading && theatres && theatres.length === 0 && (
             <div className="md-empty-wrap">
               <Empty
@@ -139,10 +120,8 @@ const MovieDetails = () => {
                         .map((show) => (
                           <Button
                             key={show._id}
-                            className={`md-show-btn${
-                              selectedShow === show._id ? " selected" : ""
-                            }`}
-                            onClick={() => handleShowSelect(show._id)}
+                            className="md-show-btn"
+                            onClick={() => navigate(`/book-show/${show._id}`)}
                           >
                             {moment(show.time, "HH:mm").format("h:mm A")}
                           </Button>
@@ -239,12 +218,9 @@ const MovieDetails = () => {
     },
   ];
 
-  // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <div className="md-page">
-      {contextHolder}
-
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
+      {/* Hero Section */}
       <section className="md-hero">
         <div
           className={`md-hero-bg ${heroLoaded ? "loaded" : "unloaded"}`}
@@ -312,26 +288,15 @@ const MovieDetails = () => {
               <strong>{language}</strong>
             </div>
           </div>
-
-          {/* CTAs */}
-          <div className="md-hero-actions">
-            <Button size="large" className="md-book-btn" onClick={() => {}}>
-              Book Tickets
-            </Button>
-            <Button size="large" className="md-info-btn">
-              More Info
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* ── Body ─────────────────────────────────────────────────────────────── */}
+      {/* Tabs */}
       <div className="md-body">
         <Tabs
           className="md-tabs"
           defaultActiveKey="showings"
           items={tabItems}
-          destroyInactiveTabPane={false}
         />
       </div>
     </div>
