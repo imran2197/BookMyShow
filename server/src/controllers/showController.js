@@ -37,29 +37,6 @@ const getAllShowsByTheatre = async (req, res) => {
     .json(ApiResponse.build(true, shows, "Shows fetched successfully"));
 };
 
-const getAllTheatresByMovie = async (req, res) => {
-  const { movie, date } = req.body;
-  const shows = await Show.find({ movie, date }).populate("theatre");
-
-  const uniqueTheatres = [];
-  shows.forEach((show) => {
-    let isTheatre = uniqueTheatres.find(
-      (theatre) => theatre._id.toString() === show.theatre._id.toString(),
-    );
-    if (!isTheatre) {
-      let showsOfThisTheatre = shows.filter(
-        (s) => s.theatre._id.toString() === show.theatre._id.toString(),
-      );
-      uniqueTheatres.push({ ...show.theatre, shows: showsOfThisTheatre });
-    }
-  });
-  res
-    .status(200)
-    .json(
-      ApiResponse.build(true, uniqueTheatres, "Shows fetched successfully"),
-    );
-};
-
 const getShowById = async (req, res) => {
   const { id } = req.body;
   const show = await Show.findById(id).populate("movie").populate("theatre");
@@ -73,6 +50,5 @@ module.exports = {
   deleteShow,
   updateShow,
   getAllShowsByTheatre,
-  getAllTheatresByMovie,
   getShowById,
 };

@@ -33,7 +33,3 @@ export const THEATRE_ENDPOINTS = {
   getOwnerSpecificTheatres: "get-owner-specific-theatres",
   getTheatreById: "/get-theatre-by-id",
 };
-
-export const SCREENING_ENDPOINTS = {
-  screenings: "/screenings",
-};

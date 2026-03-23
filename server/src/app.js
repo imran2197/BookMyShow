@@ -6,7 +6,6 @@ const { ApiError } = require("./core/ApiError");
 const moviesRoutes = require("./routes/movies");
 const usersRoutes = require("./routes/users");
 const theatresRoutes = require("./routes/theatres");
-const screeningsRoutes = require("./routes/screenings");
 const showsRoutes = require("./routes/shows");
 
 const app = express();
@@ -25,7 +24,6 @@ app.use(cookieParser());
 app.use("/movies", moviesRoutes);
 app.use(usersRoutes);
 app.use(theatresRoutes);
-app.use(screeningsRoutes);
 app.use(showsRoutes);
 
 app.use((err, req, res, next) => {

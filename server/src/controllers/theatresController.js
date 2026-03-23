@@ -1,4 +1,5 @@
 const Theatre = require("../models/Theatre");
+const Show = require("../models/Show");
 const ApiResponse = require("../core/ApiResponse");
 
 const addTheatre = async (req, res) => {
@@ -44,12 +45,10 @@ const getAllTheatres = async (req, res) => {
 
 const getOwnerSpecificTheatres = async (req, res) => {
   const { id } = req.params;
-  const theatres = await Theatre.find({ owner: id }).populate('owner');
+  const theatres = await Theatre.find({ owner: id }).populate("owner");
   return res
     .status(200)
-    .json(
-      ApiResponse.build(true,  theatres , "Theatres fetched successfully"),
-    );
+    .json(ApiResponse.build(true, theatres, "Theatres fetched successfully"));
 };
 
 const getTheatreById = async (req, res) => {
@@ -63,6 +62,26 @@ const getTheatreById = async (req, res) => {
     .json(ApiResponse.build(true, theatre, "Theaatre fetched successfully"));
 };
 
+const getAllTheatresByMovie = async (req, res) => {
+  const { movie, date } = req.body;
+  const shows = await Show.find({ movie, date }).populate("theatre");
+
+  const theatreMap = {};
+  shows.forEach((show) => {
+    const theatreId = show.theatre._id.toString();
+    if (!theatreMap[theatreId]) {
+      theatreMap[theatreId] = { ...show.theatre._doc, shows: [] };
+    }
+    theatreMap[theatreId].shows.push(show);
+  });
+  const uniqueTheatres = Object.values(theatreMap);
+  res
+    .status(200)
+    .json(
+      ApiResponse.build(true, uniqueTheatres, "Shows fetched successfully"),
+    );
+};
+
 module.exports = {
   addTheatre,
   updateTheatre,
@@ -71,4 +90,5 @@ module.exports = {
   getAllTheatres,
   getOwnerSpecificTheatres,
   getTheatreById,
+  getAllTheatresByMovie,
 };

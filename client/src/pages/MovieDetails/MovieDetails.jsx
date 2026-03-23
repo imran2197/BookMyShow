@@ -1,140 +1,338 @@
 import "./MovieDetails.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import useHttp from "../../hooks/useHttp";
+import { fetchMovieById } from "../../services/movie.service";
+import { getAllTheatresByMovie } from "../../services/theatre.service";
+import { formatRuntime } from "../../utils/Format";
+import moment from "moment";
 import {
-  fetchMovieById,
-  fetchTheatresByMovieId,
-} from "../../services/movie.service";
+  Avatar,
+  Button,
+  Input,
+  Descriptions,
+  Empty,
+  Rate,
+  Tag,
+  Tabs,
+  message,
+} from "antd";
+import {
+  ArrowLeftOutlined,
+  CalendarOutlined,
+  ClockCircleOutlined,
+  GlobalOutlined,
+  EnvironmentOutlined,
+  CheckCircleFilled,
+} from "@ant-design/icons";
 
-import { Button, Card, Col, Divider, Empty, Rate, Row, Tag, Alert } from "antd";
-
-import { ArrowLeftOutlined } from "@ant-design/icons";
-
+// ─── Main Component ───────────────────────────────────────────────────────────
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data: movie, sendRequest } = useHttp(fetchMovieById, false);
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [selectedShow, setSelectedShow] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
 
+  const { data: movie, sendRequest } = useHttp(fetchMovieById, false);
   const {
-    data: screenings,
-    error: theatresError,
+    data: theatres,
     isLoading: isTheatresLoading,
-    sendRequest: sendTheatresRequest,
-  } = useHttp(fetchTheatresByMovieId, false);
+    sendRequest: sendAllTheatresByMovieRequest,
+  } = useHttp(getAllTheatresByMovie, false);
 
   useEffect(() => {
     sendRequest(id);
-    sendTheatresRequest(id);
   }, [id]);
+
+  useEffect(() => {
+    sendAllTheatresByMovieRequest({ movie: id, date: new Date(date) });
+  }, [date]);
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
   if (!movie) return null;
 
-  const { title, description, rating, runtime, cast, posterUrl } = movie;
+  const {
+    title,
+    language,
+    genre,
+    description,
+    rating,
+    runtime,
+    cast,
+    releaseDate,
+    posterUrl,
+  } = movie;
 
-  return (
-    <div className="moviePage">
-      <div
-        className="heroSection"
-        style={{ backgroundImage: `url(${posterUrl})` }}
-      >
-        <div className="heroOverlay">
-          <Button
-            type="text"
-            className="backButton"
-            icon={<ArrowLeftOutlined />}
-            onClick={() => navigate(-1)}
-          >
-            Back
-          </Button>
+  const handleShowSelect = (showId) => {
+    setSelectedShow(showId);
+    messageApi.open({
+      content: (
+        <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <CheckCircleFilled style={{ color: "#e63946" }} />
+          Showtime selected — proceed to checkout
+        </span>
+      ),
+      duration: 3,
+      className: "md-toast-msg",
+    });
+  };
 
-          <Row gutter={[24, 24]} align="middle">
-            <Col xs={24}>
-              <h1 className="heroTitle">{title}</h1>
+  // ─── Tab Items ─────────────────────────────────────────────────────────────
+  const tabItems = [
+    {
+      key: "showings",
+      label: "Now Showing",
+      children: (
+        <div>
+          {/* Date Picker Row */}
+          <div className="md-showings-header">
+            <h2 className="md-section-label">Select Showtime</h2>
+            <Input
+              type="date"
+              className="md-date-picker"
+              value={date}
+              min={new Date().toISOString().split("T")[0]}
+              onChange={(e) => e.target.value && setDate(e.target.value)}
+            />
+          </div>
 
-              <div className="heroMeta">
-                <div className="heroRating">
-                  <Rate disabled allowHalf value={rating ? rating / 2 : 0} />
-                  <span>{rating?.toFixed(1) || "N/A"} / 10</span>
+          {/* Empty State */}
+          {!isTheatresLoading && theatres && theatres.length === 0 && (
+            <div className="md-empty-wrap">
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="No theatres available for this movie on the selected date."
+              />
+            </div>
+          )}
+
+          {/* Theatre Cards */}
+          {theatres &&
+            theatres.length > 0 &&
+            theatres.map((theatre) => (
+              <div key={theatre._id} className="md-theatre-card">
+                {/* Theatre Header */}
+                <div className="md-theatre-head">
+                  <div>
+                    <div className="md-theatre-name">{theatre.name}</div>
+                    <div className="md-theatre-addr">
+                      <EnvironmentOutlined style={{ fontSize: 11 }} />
+                      {theatre.address}
+                    </div>
+                  </div>
+                  <Tag className="md-dolby-badge">Dolby Atmos</Tag>
                 </div>
 
-                {runtime && <Tag color="magenta">⏱ {runtime} mins</Tag>}
+                {/* Show Times */}
+                <div className="md-theatre-body">
+                  {theatre.shows && theatre.shows.length > 0 ? (
+                    <div className="md-shows-row">
+                      {[...theatre.shows]
+                        .sort((a, b) => a.time.localeCompare(b.time))
+                        .map((show) => (
+                          <Button
+                            key={show._id}
+                            className={`md-show-btn${
+                              selectedShow === show._id ? " selected" : ""
+                            }`}
+                            onClick={() => handleShowSelect(show._id)}
+                          >
+                            {moment(show.time, "HH:mm").format("h:mm A")}
+                          </Button>
+                        ))}
+                    </div>
+                  ) : (
+                    <span className="md-no-shows">No shows available</span>
+                  )}
+                </div>
               </div>
-
-              <Button type="primary" size="large" className="heroBookBtn">
-                Book Tickets
-              </Button>
-            </Col>
-          </Row>
+            ))}
         </div>
-      </div>
+      ),
+    },
+    {
+      key: "about",
+      label: "About",
+      children: (
+        <div className="md-about-grid">
+          {/* Synopsis */}
+          <div>
+            <h2 className="md-section-label">Synopsis</h2>
+            <p className="md-description">{description}</p>
+          </div>
 
-      <div className="movieContent">
-        <h2 className="sectionTitle">Now Showing In</h2>
+          {/* Details */}
+          <div>
+            <h2 className="md-section-label">Details</h2>
+            <Descriptions
+              className="md-details-desc"
+              column={1}
+              colon={false}
+              layout="horizontal"
+              items={[
+                {
+                  key: "lang",
+                  label: "Language",
+                  children: language,
+                },
+                {
+                  key: "genre",
+                  label: "Genre",
+                  children: genre.join(", "),
+                },
+                {
+                  key: "runtime",
+                  label: "Runtime",
+                  children: formatRuntime(runtime),
+                },
+                {
+                  key: "release",
+                  label: "Release Date",
+                  children: moment(releaseDate).format("D MMMM YYYY"),
+                },
+                {
+                  key: "rating",
+                  label: "Rating",
+                  children: (
+                    <span className="md-gold-rating">
+                      {rating?.toFixed(1)} / 10
+                    </span>
+                  ),
+                },
+              ]}
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: "cast",
+      label: "Cast",
+      children: (
+        <div>
+          <h2 className="md-section-label">Cast &amp; Crew</h2>
+          <div className="md-cast-grid">
+            {cast.map((member) => (
+              <div key={member._id} className="md-cast-card">
+                <Avatar
+                  src={member.profilePicture}
+                  alt={member.name}
+                  className="md-cast-avatar"
+                  size={80}
+                />
+                <div className="md-cast-name">{member.name}</div>
+                {member.alias && (
+                  <div className="md-cast-alias">as {member.alias}</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+  ];
 
-        {theatresError && (
-          <Alert
-            message="Unable to load theatres"
-            description={theatresError}
-            type="error"
-            showIcon
-          />
-        )}
+  // ─── Render ────────────────────────────────────────────────────────────────
+  return (
+    <div className="md-page">
+      {contextHolder}
 
-        {!isTheatresLoading && !theatresError && (
-          <>
-            {(screenings?.theatres || []).length === 0 ? (
-              <Empty description="No theatres available" />
-            ) : (
-              <Row gutter={[16, 16]}>
-                {(screenings?.theatres || []).map((t) => (
-                  <Col key={t._id} xs={24} sm={12} md={8}>
-                    <Card hoverable className="theatreCard">
-                      <h3>{t.name}</h3>
-                      <p>{t.address}</p>
-                      <p>📞 {t.contactNo}</p>
+      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
+      <section className="md-hero">
+        <div
+          className={`md-hero-bg ${heroLoaded ? "loaded" : "unloaded"}`}
+          style={{ backgroundImage: `url(${posterUrl})` }}
+        />
+        <div className="md-hero-gradient" />
 
-                      <Button type="primary" block className="bookBtn">
-                        Book Now
-                      </Button>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            )}
-          </>
-        )}
+        {/* Back Button */}
+        <Button
+          className="md-back-btn"
+          icon={<ArrowLeftOutlined />}
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </Button>
 
-        <Divider />
+        {/* Hero Text */}
+        <div className={`md-hero-content ${heroLoaded ? "visible" : "hidden"}`}>
+          {/* Genre Tags */}
+          <div className="md-tags">
+            {genre.map((g) => (
+              <Tag key={g} className="md-genre-tag">
+                {g}
+              </Tag>
+            ))}
+          </div>
 
-        <h2 className="sectionTitle">About</h2>
-        <p className="description">{description}</p>
+          {/* Title */}
+          <h1 className="md-title">{title}</h1>
 
-        {cast && cast.length > 0 && (
-          <>
-            <Divider />
-            <h2 className="sectionTitle">Cast</h2>
+          {/* Meta Row */}
+          <div className="md-meta-row">
+            <div className="md-rating-block">
+              <Rate
+                disabled
+                allowHalf
+                value={rating ? rating / 2 : 0}
+                className="md-hero-rate"
+              />
+              <span className="md-rating-score">{rating?.toFixed(1)}</span>
+              <div>
+                <div className="md-rating-label">IMDb Score</div>
+                <div className="md-rating-sub">/ 10</div>
+              </div>
+            </div>
 
-            <Row gutter={[16, 16]}>
-              {cast.map((member) => (
-                <Col key={member._id} xs={12} sm={8} md={4}>
-                  <div className="castItem">
-                    <img
-                      src={member.profilePicture}
-                      alt={member.name}
-                      className="castImage"
-                    />
-                    <div className="castName">{member.name}</div>
-                    {member.alias && (
-                      <div className="castAlias">as {member.alias}</div>
-                    )}
-                  </div>
-                </Col>
-              ))}
-            </Row>
-          </>
-        )}
+            <div className="md-meta-dot" />
+
+            <div className="md-meta-item">
+              <ClockCircleOutlined style={{ fontSize: 13 }} />
+              <strong>{formatRuntime(runtime)}</strong>
+            </div>
+
+            <div className="md-meta-dot" />
+
+            <div className="md-meta-item">
+              <CalendarOutlined style={{ fontSize: 13 }} />
+              <strong>{moment(releaseDate).format("D MMMM YYYY")}</strong>
+            </div>
+
+            <div className="md-meta-dot" />
+
+            <div className="md-meta-item">
+              <GlobalOutlined style={{ fontSize: 13 }} />
+              <strong>{language}</strong>
+            </div>
+          </div>
+
+          {/* CTAs */}
+          <div className="md-hero-actions">
+            <Button size="large" className="md-book-btn" onClick={() => {}}>
+              Book Tickets
+            </Button>
+            <Button size="large" className="md-info-btn">
+              More Info
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Body ─────────────────────────────────────────────────────────────── */}
+      <div className="md-body">
+        <Tabs
+          className="md-tabs"
+          defaultActiveKey="showings"
+          items={tabItems}
+          destroyInactiveTabPane={false}
+        />
       </div>
     </div>
   );

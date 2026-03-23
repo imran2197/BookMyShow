@@ -91,7 +91,7 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
     setSubmitted(true);
     const payload = {
       name: values.name,
-      date: values.date.toDate(),
+      date: values.date.format("YYYY-MM-DD"),
       time: values.time.format("hh:mm A"),
       movie: values.movie,
       ticketPrice: Number(values.ticketPrice),

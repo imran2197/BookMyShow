@@ -2,7 +2,6 @@ const express = require("express");
 const {
   getAllMovies,
   getMovieById,
-  getMoviesForScreening,
   addMovie,
   updateMovie,
   deleteMovie,
@@ -17,6 +16,5 @@ router.delete("/delete-movie/:id", isLoggedIn, isAdmin, deleteMovie);
 router.get("/get-all-movies", getAllMovies);
 
 router.get("/:id", getMovieById);
-router.get("/screenings/:id", getMoviesForScreening);
 
 module.exports = router;

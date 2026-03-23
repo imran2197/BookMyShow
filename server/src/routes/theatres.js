@@ -12,6 +12,7 @@ const {
   getTheatreById,
   deleteTheatre,
   getAllTheatres,
+  getAllTheatresByMovie,
 } = require("../controllers/theatresController");
 
 router.post("/add-theatre", isLoggedIn, isPartnerOrAdmin, addTheatre);
@@ -36,5 +37,7 @@ router.get(
   isPartnerOrAdmin,
   getTheatreById,
 );
+
+router.post("/get-all-theatres-by-movie", getAllTheatresByMovie);
 
 module.exports = router;

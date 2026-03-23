@@ -43,6 +43,14 @@ const getTheatreById = async (id) => {
   return response.data;
 };
 
+const getAllTheatresByMovie = async (payload) => {
+  const response = await axiosInstance.post(
+    "/get-all-theatres-by-movie",
+    payload,
+  );
+  return response.data;
+};
+
 export {
   addTheatre,
   updateTheatre,
@@ -50,4 +58,5 @@ export {
   getAllTheatres,
   getOwnerSpecificTheatres,
   getTheatreById,
+  getAllTheatresByMovie,
 };

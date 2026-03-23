@@ -23,24 +23,9 @@ const getAllShowsByTheatre = async (payload) => {
   return response.data;
 };
 
-const getAllTheatresByMovie = async (payload) => {
-  const response = await axiosInstance.post(
-    "/get-all-theatres-by-movie",
-    payload,
-  );
-  return response.data;
-};
-
 const getShowById = async (payload) => {
   const response = await axiosInstance.post("/get-show-by-id", payload);
   return response.data;
 };
 
-export {
-  addShow,
-  updateShow,
-  deleteShow,
-  getAllShowsByTheatre,
-  getAllTheatresByMovie,
-  getShowById,
-};
+export { addShow, updateShow, deleteShow, getAllShowsByTheatre, getShowById };
