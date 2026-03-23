@@ -8,6 +8,7 @@ import MovieDetails from "./pages/MovieDetails/MovieDetails";
 import Admin from "./pages/Admin/Admin";
 import Partner from "./pages/Partner/Partner";
 import Show from "./pages/Partner/Show/Show";
+import BookShow from "./pages/BookShow/BookShow";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/partner" element={<Partner />} />
         <Route path="/partner/shows" element={<Show />} />
+        <Route path="/book-show/:id" element={<BookShow />} />
       </Routes>
     </Layout>
   );
