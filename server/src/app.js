@@ -8,6 +8,7 @@ const usersRoutes = require("./routes/users");
 const theatresRoutes = require("./routes/theatres");
 const showsRoutes = require("./routes/shows");
 const bookingsRoutes = require("./routes/bookings");
+const paymentsRoutes = require("./routes/payments");
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(usersRoutes);
 app.use(theatresRoutes);
 app.use(showsRoutes);
 app.use(bookingsRoutes);
+app.use(paymentsRoutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
