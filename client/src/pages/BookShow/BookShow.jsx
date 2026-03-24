@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import useHttp from "../../hooks/useHttp";
 import { getShowById } from "../../services/show.service";
@@ -14,6 +14,8 @@ import {
 import moment from "moment";
 import "./BookShow.css";
 import SummaryContent from "./SummaryContent";
+import { createBooking } from "../../services/bookshow.service";
+import UserContext from "../../context/user-context";
 
 const COLUMNS = 12;
 
@@ -23,10 +25,17 @@ const BookShow = () => {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [sheetOpen, setSheetOpen] = useState(false);
+
   const { data: showData, sendRequest: sendShowByIdRequest } = useHttp(
     getShowById,
     false,
   );
+  const { sendRequest: sendCreateBookingRequest } = useHttp(
+    createBooking,
+    false,
+  );
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     sendShowByIdRequest({ id });
@@ -54,6 +63,15 @@ const BookShow = () => {
         ? prev.filter((s) => s !== seatNumber)
         : [...prev, seatNumber],
     );
+  };
+
+  const handleCreateBooking = async () => {
+    await sendCreateBookingRequest({
+      show: id,
+      user: user._id,
+      seats: selectedSeats,
+      totalAmount: grandTotal,
+    });
   };
 
   const totalPrice = selectedSeats.length * (showData?.ticketPrice ?? 0);
@@ -197,7 +215,7 @@ const BookShow = () => {
             convFee={convFee}
             grandTotal={grandTotal}
           />
-          <button className="bs-sheet-book-btn">
+          <button className="bs-sheet-book-btn" onClick={handleCreateBooking}>
             Book {selectedSeats.length} Seat
             {selectedSeats.length > 1 ? "s" : ""}
           </button>
