@@ -54,6 +54,33 @@
   max-width: 320px;
 }
 
+/* Empty state */
+.movies-empty {
+  margin-top: 40px;
+  padding: 40px 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.movies-empty-img {
+  width: 120px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.movies-empty h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.movies-empty p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
 @media (max-width: 768px) {
   .movies-page {
     padding-inline: 12px;
