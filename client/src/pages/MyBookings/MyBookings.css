@@ -1,0 +1,135 @@
+.mb-page {
+  padding: 30px 20px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "DM Sans", sans-serif;
+}
+
+.mb-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* List */
+.mb-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.mb-card {
+  display: flex;
+  gap: 16px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Poster */
+.mb-poster {
+  width: 90px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Info */
+.mb-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mb-movie {
+  margin: 0;
+  font-size: 18px;
+}
+
+.mb-meta {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* Footer */
+.mb-footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mb-price {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Status */
+.mb-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mb-status.confirmed {
+  background: #e6f7ec;
+  color: green;
+}
+
+.mb-status.pending {
+  background: #fff4e5;
+  color: orange;
+}
+
+/* Loading */
+.mb-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+/* Empty state */
+.mb-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.mb-empty-card {
+  text-align: center;
+  max-width: 320px;
+}
+
+.mb-empty-img {
+  width: 120px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.mb-empty-card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.mb-empty-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 8px 0 16px;
+}
+
+/* Button */
+.mb-btn-explore {
+  background: #f84464;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}

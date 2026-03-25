@@ -1,0 +1,584 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap");
+
+/* ─── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --red: #f84464;
+  --red2: #d9294a;
+  --red-soft: rgba(248, 68, 100, 0.08);
+  --red-border: rgba(248, 68, 100, 0.22);
+  --green: #22c55e;
+  --green-soft: rgba(34, 197, 94, 0.1);
+  --green-border: rgba(34, 197, 94, 0.3);
+  --text: #111118;
+  --muted: #7a7a8a;
+  --hint: #b0b0c0;
+  --surface: #f4f4f8;
+  --border: rgba(0, 0, 0, 0.07);
+  --border-s: rgba(0, 0, 0, 0.12);
+  --panel: #ffffff;
+  --font-h: "Bebas Neue", sans-serif;
+  --font-b: "DM Sans", sans-serif;
+  --r: 14px;
+  --r-lg: 20px;
+  --pill: 99px;
+  --shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 40px rgba(0, 0, 0, 0.1);
+  --shadow-ticket: 0 16px 56px rgba(0, 0, 0, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─── Page ───────────────────────────────────────────────────── */
+.pr-page {
+  min-height: 100vh;
+  background: var(--surface);
+  font-family: var(--font-b);
+  color: var(--text);
+}
+
+/* Brand top stripe */
+.pr-topstripe {
+  height: 3px;
+  background: linear-gradient(90deg, #f84464, #ff6b81);
+}
+
+/* ─── Content wrapper ────────────────────────────────────────── */
+.pr-content {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 24px) 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SUCCESS BADGE
+════════════════════════════════════════════════════════════════ */
+.pr-success-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  animation: pr-fade-down 0.55s ease both;
+}
+
+@keyframes pr-fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pr-check-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  border: 2px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: pr-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s both;
+}
+
+@keyframes pr-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pr-success-title {
+  font-family: var(--font-h);
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0 0 4px;
+  line-height: 1;
+}
+
+.pr-success-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   TICKET CARD
+════════════════════════════════════════════════════════════════ */
+.pr-ticket {
+  width: 100%;
+  background: var(--panel);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-ticket);
+  overflow: hidden;
+  animation: pr-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+@keyframes pr-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Ticket top — red header ──────────────────────────────────── */
+.pr-ticket-top {
+  background: linear-gradient(135deg, #f84464 0%, #ff6b81 100%);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pr-ticket-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pr-ticket-brand {
+  font-family: var(--font-h);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.pr-ticket-subtitle {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pr-ticket-status-badge {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--pill);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+.pr-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: pr-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pr-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+/* ── Perforated divider ───────────────────────────────────────── */
+.pr-perf {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  background: var(--panel);
+}
+
+.pr-perf-line {
+  flex: 1;
+  height: 1.5px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--border-s) 0,
+    var(--border-s) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.pr-perf-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface);
+  flex-shrink: 0;
+  position: absolute;
+}
+
+.pr-perf-circle--left {
+  left: -11px;
+}
+.pr-perf-circle--right {
+  right: -11px;
+}
+
+/* ── Ticket body ──────────────────────────────────────────────── */
+.pr-ticket-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pr-ticket-meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pr-ticket-meta-item {
+  flex: 1;
+}
+.pr-ticket-meta-item--right {
+  text-align: right;
+}
+
+.pr-meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--hint);
+  margin-bottom: 5px;
+}
+
+.pr-meta-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.pr-mono {
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.08em;
+}
+
+/* Seats */
+.pr-seats-section {
+  padding: 16px 18px;
+  background: var(--surface);
+  border-radius: var(--r);
+  border: 1.5px solid var(--border);
+}
+
+.pr-seat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.pr-seat-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  padding: 5px 10px;
+  background: var(--red-soft);
+  border: 1.5px solid var(--red-border);
+  color: var(--red);
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Courier New", monospace;
+  letter-spacing: 0.04em;
+}
+
+/* Amount */
+.pr-amount-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.pr-amount {
+  font-family: var(--font-h);
+  font-size: 2.2rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  line-height: 1;
+  margin-top: 4px;
+}
+
+.pr-amount-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--green-soft);
+  border: 1.5px solid var(--green-border);
+  border-radius: var(--pill);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #16a34a;
+}
+
+/* ── Ticket footer ────────────────────────────────────────────── */
+.pr-ticket-footer {
+  padding: 16px 24px 20px;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pr-footer-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pr-txn {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   INFO NOTE + ACTIONS
+════════════════════════════════════════════════════════════════ */
+.pr-info-note {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.7;
+  max-width: 380px;
+  animation: pr-rise 0.6s ease 0.4s both;
+}
+
+.pr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  animation: pr-rise 0.6s ease 0.5s both;
+}
+
+.pr-btn-home-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #f84464, #ff6b81);
+  border: none;
+  border-radius: var(--r);
+  color: #fff;
+  font-family: var(--font-b);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(248, 68, 100, 0.28);
+  transition:
+    filter 0.18s,
+    transform 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pr-btn-home-primary:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
+
+.pr-btn-bookings {
+  width: 100%;
+  padding: 13px;
+  background: var(--panel);
+  border: 1.5px solid var(--border-s);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    border-color 0.18s;
+}
+
+.pr-btn-bookings:hover {
+  background: var(--surface);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   LOADING STATE
+════════════════════════════════════════════════════════════════ */
+.pr-loading {
+  display: flex;
+  flex-direction: column;
+}
+
+.pr-loader-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 80px 24px;
+}
+
+.pr-loader-ring {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--red-soft);
+  border: 2px solid var(--red-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pr-loader-text {
+  font-family: var(--font-h);
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.pr-loader-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   FAILED STATE
+════════════════════════════════════════════════════════════════ */
+.pr-failed-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.pr-center-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  gap: 14px;
+}
+
+.pr-fail-icon {
+  animation: pr-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.pr-fail-title {
+  font-family: var(--font-h);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: 0;
+}
+
+.pr-fail-msg {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 360px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.pr-fail-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.pr-btn-retry {
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color: #fff !important;
+  border-radius: var(--r) !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  height: auto !important;
+  font-family: var(--font-b) !important;
+}
+
+.pr-btn-home {
+  background: var(--panel) !important;
+  border: 1.5px solid var(--border-s) !important;
+  color: var(--text) !important;
+  border-radius: var(--r) !important;
+  font-weight: 500 !important;
+  padding: 10px 24px !important;
+  height: auto !important;
+  font-family: var(--font-b) !important;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .pr-ticket-top {
+    padding: 16px 18px;
+  }
+  .pr-ticket-body {
+    padding: 18px;
+    gap: 16px;
+  }
+  .pr-ticket-footer {
+    padding: 14px 18px 18px;
+  }
+  .pr-seat-chip {
+    min-width: 32px;
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+  .pr-amount {
+    font-size: 1.9rem;
+  }
+  .pr-success-badge {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}

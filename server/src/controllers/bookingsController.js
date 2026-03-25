@@ -33,6 +33,34 @@ const createBooking = async (req, res) => {
     .json(ApiResponse.build(true, newBooking, "Booking created successfully"));
 };
 
+const getAllBookings = async (req, res) => {
+  const { userId } = req;
+  const bookings = await Booking.find({ user: userId })
+    .sort({ createdAt: -1 })
+    .populate("user")
+    .populate({
+      path: "show",
+      populate: {
+        path: "movie",
+        model: "Movie",
+      },
+    })
+    .populate({
+      path: "show",
+      populate: {
+        path: "theatre",
+        model: "Theatre",
+      },
+    });
+
+  res
+    .status(200)
+    .json(
+      ApiResponse.build(true, bookings, "All bookings fetched successfully"),
+    );
+};
+
 module.exports = {
   createBooking,
+  getAllBookings,
 };

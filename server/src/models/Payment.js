@@ -6,7 +6,6 @@ const paymentSchema = new mongoose.Schema(
     txnId: {
       type: String,
       unique: true,
-      required: true,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,7 +15,6 @@ const paymentSchema = new mongoose.Schema(
     method: {
       type: String,
       required: true,
-      enum: ["UPI", "CARD", "NET_BANKING", "WALLET", "CASH"],
     },
     amount: {
       type: Number,
@@ -32,6 +30,7 @@ const paymentSchema = new mongoose.Schema(
       enum: ["PENDING", "PAID", "CANCELLED"],
       default: "PENDING",
     },
+    sessionId: String,
   },
   {
     timestamps: true,

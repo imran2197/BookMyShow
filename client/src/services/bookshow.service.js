@@ -9,4 +9,9 @@ const createBooking = async (values) => {
   return response.data;
 };
 
-export { createBooking };
+const getAllBookings = async () => {
+  const response = await axiosInstance.get(BOOKING_ENDPOINTS.getAllBookings);
+  return response.data;
+};
+
+export { createBooking, getAllBookings };

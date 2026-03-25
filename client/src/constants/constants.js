@@ -36,4 +36,10 @@ export const THEATRE_ENDPOINTS = {
 
 export const BOOKING_ENDPOINTS = {
   createBooking: "/bookings",
+  getAllBookings: "/bookings",
+};
+
+export const PAYMENT_ENDPOINTS = {
+  createPayment: "/payments",
+  paymentStatus: "/paymentStatus",
 };

@@ -30,16 +30,12 @@ const BookShow = () => {
     getShowById,
     false,
   );
-  const { sendRequest: sendCreateBookingRequest } = useHttp(
+  const { data: booking, sendRequest: sendCreateBookingRequest } = useHttp(
     createBooking,
     false,
   );
 
   const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    sendShowByIdRequest({ id });
-  }, []);
 
   const bookedSeats = showData?.bookedSeats ?? [];
   const totalSeats = showData?.totalSeats ?? 0;
@@ -77,6 +73,21 @@ const BookShow = () => {
   const totalPrice = selectedSeats.length * (showData?.ticketPrice ?? 0);
   const convFee = selectedSeats.length * 20;
   const grandTotal = totalPrice + convFee;
+
+  useEffect(() => {
+    sendShowByIdRequest({ id });
+  }, []);
+
+  useEffect(() => {
+    if (booking) {
+      navigate("/checkout", {
+        state: {
+          bookingId: booking._id,
+          amount: grandTotal,
+        },
+      });
+    }
+  }, [booking, grandTotal, navigate]);
 
   if (!showData) return null;
 
