@@ -62,6 +62,29 @@ const MovieForm = ({
     "Punjabi",
   ];
 
+  const genres = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "History",
+    "Horror",
+    "Music",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+    "Sport",
+    "Thriller",
+    "War",
+    "Western",
+  ];
+
   useEffect(() => {
     if (newMovieData || updatedMovieData) {
       setIsModalOpen(false);
@@ -173,18 +196,11 @@ const MovieForm = ({
               name="genre"
               rules={[{ required: true, message: "Genre required!" }]}
             >
-              <Select
-                mode="multiple"
-                placeholder="Select Genres"
-                options={[
-                  { value: "Action" },
-                  { value: "Comedy" },
-                  { value: "Romance" },
-                  { value: "Thriller" },
-                  { value: "Horror" },
-                  { value: "Mystery" },
-                ]}
-              />
+              <Select mode="multiple" placeholder="Select Genres">
+                {genres.map((g) => (
+                  <Option value={g}>{g}</Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
 
