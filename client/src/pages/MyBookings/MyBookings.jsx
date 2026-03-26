@@ -43,39 +43,39 @@ const MyBookings = () => {
 
       <div className="mb-list">
         {bookingsData.map((booking) => {
-          const show = booking.show;
-          const movie = show.movie;
+          const show = booking?.show;
+          const movie = show?.movie;
 
           return (
-            <div className="mb-card" key={booking._id}>
+            <div className="mb-card" key={booking?._id}>
               {/* Poster */}
               <img
-                src={movie.posterUrl}
-                alt={movie.title}
+                src={movie?.posterUrl}
+                alt={movie?.title}
                 className="mb-poster"
               />
 
               {/* Details */}
               <div className="mb-info">
-                <h3 className="mb-movie">{movie.title}</h3>
+                <h3 className="mb-movie">{movie?.title}</h3>
 
-                <p className="mb-meta">{show.theatre.name}</p>
+                <p className="mb-meta">{show?.theatre.name}</p>
 
                 <p className="mb-meta">
-                  {new Date(show.date).toDateString()} • {show.time}
+                  {new Date(booking?.createdAt).toDateString()} • {show?.time}
                 </p>
 
-                <p className="mb-meta">Seats: {booking.seats.join(", ")}</p>
+                <p className="mb-meta">Seats: {booking?.seats.join(", ")}</p>
 
                 <div className="mb-footer">
-                  <span className="mb-price">₹{booking.totalAmount}</span>
+                  <span className="mb-price">₹{booking?.totalAmount}</span>
 
                   <span
                     className={`mb-status ${
-                      booking.status === "CONFIRMED" ? "confirmed" : "pending"
+                      booking?.status === "CONFIRMED" ? "confirmed" : "pending"
                     }`}
                   >
-                    {booking.status}
+                    {booking?.status}
                   </span>
                 </div>
               </div>
