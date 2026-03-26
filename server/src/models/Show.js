@@ -6,7 +6,11 @@ const ShowSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    date: {
+    fromDate: {
+      type: Date,
+      required: true,
+    },
+    toDate: {
       type: Date,
       required: true,
     },

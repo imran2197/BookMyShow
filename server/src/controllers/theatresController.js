@@ -64,7 +64,15 @@ const getTheatreById = async (req, res) => {
 
 const getAllTheatresByMovie = async (req, res) => {
   const { movie, date } = req.body;
-  const shows = await Show.find({ movie, date }).populate("theatre");
+  const shows = await Show.find({
+    movie,
+    fromDate: {
+      $lte: new Date(date),
+    },
+    toDate: {
+      $gte: new Date(date),
+    },
+  }).populate("theatre");
 
   const theatreMap = {};
   shows.forEach((show) => {

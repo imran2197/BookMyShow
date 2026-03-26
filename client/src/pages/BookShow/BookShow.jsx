@@ -121,7 +121,7 @@ const BookShow = () => {
         <div className="bs-meta-dot" />
         <div className="bs-meta-chip">
           <ClockCircleOutlined />
-          <span>{moment(showData.time, "HH:mm").format("h:mm A")}</span>
+          <span>{moment(showData.time, "hh:mm A").format("h:mm A")}</span>
         </div>
         <div className="bs-meta-dot" />
         <div className="bs-meta-chip">

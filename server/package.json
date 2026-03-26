@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "seed/movies": "node src/seeds/movies.js"
+    "seed/movies": "node src/seeds/movies.js",
+    "seed/shows": "node src/seeds/shows.js"
   },
   "author": "",
   "license": "ISC",

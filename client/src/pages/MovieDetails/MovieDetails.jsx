@@ -116,14 +116,18 @@ const MovieDetails = () => {
                   {theatre.shows && theatre.shows.length > 0 ? (
                     <div className="md-shows-row">
                       {[...theatre.shows]
-                        .sort((a, b) => a.time.localeCompare(b.time))
+                        .sort((a, b) =>
+                          moment(a.time, "hh:mm A").diff(
+                            moment(b.time, "hh:mm A"),
+                          ),
+                        )
                         .map((show) => (
                           <Button
                             key={show._id}
                             className="md-show-btn"
                             onClick={() => navigate(`/book-show/${show._id}`)}
                           >
-                            {moment(show.time, "HH:mm").format("h:mm A")}
+                            {moment(show.time, "hh:mm A").format("h:mm A")}
                           </Button>
                         ))}
                     </div>

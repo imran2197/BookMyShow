@@ -76,7 +76,8 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
     if (isEdit && selectedShow) {
       form.setFieldsValue({
         name: selectedShow.name,
-        date: selectedShow.date ? dayjs(selectedShow.date) : null,
+        fromDate: selectedShow.fromDate ? dayjs(selectedShow.fromDate) : null,
+        toDate: selectedShow.toDate ? dayjs(selectedShow.toDate) : null,
         time: selectedShow.time ? dayjs(selectedShow.time, "hh:mm A") : null,
         movie: selectedShow.movie?._id,
         ticketPrice: selectedShow.ticketPrice,
@@ -91,7 +92,8 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
     setSubmitted(true);
     const payload = {
       name: values.name,
-      date: values.date.format("YYYY-MM-DD"),
+      fromDate: values.fromDate.format("YYYY-MM-DD"),
+      toDate: values.toDate.format("YYYY-MM-DD"),
       time: values.time.format("hh:mm A"),
       movie: values.movie,
       ticketPrice: Number(values.ticketPrice),
@@ -138,15 +140,30 @@ const ShowForm = ({ isEdit, setView, theatreId, setRefresh }) => {
 
             <Col xs={24} sm={12} lg={8}>
               <Form.Item
-                name="date"
-                label="Date"
-                htmlFor="date"
+                name="fromDate"
+                label="From Date"
+                htmlFor="fromDate"
                 rules={[{ required: true, message: "Date is required!" }]}
               >
                 <DatePicker
                   size="large"
                   style={{ width: "100%" }}
-                  placeholder="Select date"
+                  placeholder="Select from date"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} sm={12} lg={8}>
+              <Form.Item
+                name="toDate"
+                label="To Date"
+                htmlFor="toDate"
+                rules={[{ required: true, message: "Date is required!" }]}
+              >
+                <DatePicker
+                  size="large"
+                  style={{ width: "100%" }}
+                  placeholder="Select to date"
                 />
               </Form.Item>
             </Col>
