@@ -1,5 +1,5 @@
 import "./MovieDetails.css";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import useHttp from "../../hooks/useHttp";
 import { fetchMovieById } from "../../services/movie.service";
@@ -15,6 +15,7 @@ import {
   Rate,
   Tag,
   Tabs,
+  message,
 } from "antd";
 import {
   ArrowLeftOutlined,
@@ -24,10 +25,12 @@ import {
   EnvironmentOutlined,
   CheckCircleFilled,
 } from "@ant-design/icons";
+import UserContext from "../../context/user-context";
 
 const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -125,7 +128,15 @@ const MovieDetails = () => {
                           <Button
                             key={show._id}
                             className="md-show-btn"
-                            onClick={() => navigate(`/book-show/${show._id}`)}
+                            onClick={() => {
+                              if (user) {
+                                navigate(`/book-show/${show._id}`);
+                              } else {
+                                message.error(
+                                  "Please log in to book your show and secure your seats 🎟️",
+                                );
+                              }
+                            }}
                           >
                             {moment(show.time, "hh:mm A").format("h:mm A")}
                           </Button>

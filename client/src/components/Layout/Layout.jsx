@@ -25,6 +25,7 @@ import {
   DashboardOutlined,
   CaretDownOutlined,
   TeamOutlined,
+  FileTextOutlined,
 } from "@ant-design/icons";
 
 import UserContext from "../../context/user-context";
@@ -64,22 +65,6 @@ const Layout = ({ children }) => {
       : []),
   ];
 
-  // const theatreItems = [
-  //   {
-  //     key: "1",
-  //     icon: <PlusOutlined />,
-  //     label: <Link to="/addTheatre">Add Theatre</Link>,
-  //   },
-  //   {
-  //     key: "2",
-  //     icon: <AppstoreOutlined />,
-  //     label: <Link to="/myTheatres">My Theatres</Link>,
-  //   },
-  // ];
-
-  // const canCreateTheatre =
-  //   isAuthenticated && (user?.role === "Admin" || user?.role === "Partner");
-
   return (
     <AntLayout className="layout">
       {/* HEADER */}
@@ -96,6 +81,13 @@ const Layout = ({ children }) => {
             <HomeOutlined />
             Home
           </NavLink>
+
+          {user && (
+            <NavLink to="/my-bookings" className="navItem">
+              <FileTextOutlined />
+              My Bookings
+            </NavLink>
+          )}
 
           {user?.role === "Admin" && (
             <NavLink to="/admin" className="navItem">
@@ -170,6 +162,16 @@ const Layout = ({ children }) => {
                 <HomeOutlined />
                 Home
               </Link>
+              {user && (
+                <Link
+                  className="navItem"
+                  to="/my-bookings"
+                  onClick={() => setOpen(false)}
+                >
+                  <FileTextOutlined />
+                  My Bookings
+                </Link>
+              )}
               {user?.role === "Admin" && (
                 <Link
                   className="navItem"
